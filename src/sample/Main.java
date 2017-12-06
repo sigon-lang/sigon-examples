@@ -1,15 +1,22 @@
 package sample;
 
 import javafx.application.Application;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.TextField;
+import javafx.scene.control.Button;
+
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
 public class Main extends Application {
+
+    public static final int CELL_SIZE = 50;
+
 
     int SIZE = 10;
     int length = SIZE;
@@ -23,15 +30,22 @@ public class Main extends Application {
     public void start(Stage primaryStage) {
 
         GridPane root = new GridPane();
-
+        root.setPadding(new Insets(10, 10, 10, 10));
+        root.setHgap(2);
+        root.setVgap(2);
+        root.getStyleClass().addAll("game-root");
 
         addChildrens(rowIndex, columnIndex, root);
 
 
-        Scene scene = new Scene(root, 500, 500);
+        Scene scene = new Scene(root, 550, 550);
+        scene.getStylesheets().add("sample/game.css");
+
+
         primaryStage.setTitle("Exemplo 1");
         primaryStage.setScene(scene);
         primaryStage.show();
+
 
         scene.addEventFilter(KeyEvent.KEY_PRESSED, keyEvent -> {
             if(keyEvent.getCode().equals(KeyCode.RIGHT)){
@@ -46,15 +60,19 @@ public class Main extends Application {
     }
 
     private void moveUp(GridPane root){
-        System.out.println("Move up");
-        rowIndex++;
-        addChildrens(rowIndex, columnIndex, root);
+        if(rowIndex < SIZE -1){
+            System.out.println("Move up");
+            rowIndex++;
+            addChildrens(rowIndex, columnIndex, root);
+        }
     }
 
     private void moveFront(GridPane root){
-        System.out.println("Move front");
-        columnIndex++;
-        addChildrens(rowIndex, columnIndex, root);
+        if(columnIndex < SIZE -1) {
+            System.out.println("Move front");
+            columnIndex++;
+            addChildrens(rowIndex, columnIndex, root);
+        }
     }
 
     private void addChildrens(int rowIndex, int columnIndex, GridPane root) {
@@ -62,26 +80,31 @@ public class Main extends Application {
             for(int x = 0; x < width; x++) {
 
 
-                TextField tf = new TextField();
-                tf.setPrefHeight(50);
-                tf.setPrefWidth(50);
-                tf.setAlignment(Pos.CENTER);
-                tf.setEditable(false);
+                Button button = new Button();
+
+                button.setPrefHeight(50);
+                button.setPrefWidth(50);
+                button.setAlignment(Pos.CENTER);
+
+
 
 
                 if (y == rowIndex && x == columnIndex) {
-                    tf.setText("A");
+                    button.setText("A");
+                    button.getStyleClass().addAll("game-button");
                 } else {
-                    tf.setText("");
+                    button.setText("");
+                    button.getStyleClass().addAll("game-button-active");
                 }
 
 
-                root.setRowIndex(tf,y);
-                root.setColumnIndex(tf,x);
-                root.getChildren().add(tf);
+                root.setRowIndex(button,y);
+                root.setColumnIndex(button,x);
+                root.getChildren().add(button);
             }
         }
     }
+
 
     public static void main(String[] args) {
         launch(args);
