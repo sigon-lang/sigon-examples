@@ -24,22 +24,23 @@ import sensor.PositionSensor;
 
 import java.io.IOException;
 
+
 public class Main extends Application {
 
-    int SIZE = 10;
-    int length = SIZE;
-    int width = SIZE;
+    static GridPane root;
 
-    int rowIndex = 0;
-    int columnIndex = 0;
+    static int SIZE = 10;
+    static int length = SIZE;
+    static int width = SIZE;
+
+    public static  int rowIndex = 0;
+    public static  int columnIndex = 0;
 
 
     @Override
     public void start(Stage primaryStage) {
 
-
-
-        GridPane root = new GridPane();
+        root = new GridPane();
         root.setPadding(new Insets(10, 10, 10, 10));
         root.setHgap(2);
         root.setVgap(2);
@@ -57,14 +58,16 @@ public class Main extends Application {
         primaryStage.show();
 
 
+
         scene.addEventFilter(KeyEvent.KEY_PRESSED, keyEvent -> {
-            if(keyEvent.getCode().equals(KeyCode.RIGHT)){
-                moveFront(root);
-            } else if(keyEvent.getCode().equals(KeyCode.UP)){
-                moveUp(root);
-            }
+            PositionSensor.positionObservable.onNext("position(0,0).");
+
+
 
         });
+
+
+
 
 
 
@@ -98,18 +101,17 @@ public class Main extends Application {
         }
     }
 
-    private void moveUp(GridPane root){
+    public static void moveUp(){
         if(rowIndex < SIZE -1){
 
             try {
-                Thread.sleep(1000l);
-
+                Thread.sleep(500l);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
 
             rowIndex++;
-            root.getChildren().removeAll();
+             
             addChildrens(rowIndex, columnIndex, root);
 
             String content = "position("+(columnIndex+1)+","+(rowIndex+1) +").";
@@ -117,8 +119,14 @@ public class Main extends Application {
         }
     }
 
-    private void moveFront(GridPane root){
+    public static  void moveFront( ){
         if(columnIndex < SIZE -1) {
+
+            try {
+                Thread.sleep(500l);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
 
             try {
                 Thread.sleep(1000l);
@@ -135,7 +143,9 @@ public class Main extends Application {
         }
     }
 
-    private void addChildrens(int rowIndex, int columnIndex, GridPane root) {
+    private static void addChildrens(int rowIndex, int columnIndex, GridPane root) {
+
+
 
         for(int y = 0; y < length; y++){
             for(int x = 0; x < width; x++) {
@@ -163,32 +173,30 @@ public class Main extends Application {
                 root.setColumnIndex(button,x);
                 root.getChildren().add(button);
             }
+
+
         }
+
+
+
+        System.out.println("Atualizar ambiente");
+
     }
 
     public  static  void startEnvironment(){
         launch();
+
+
     }
 
     public static void main(String[] args) {
 
-        Thread agentThread = new Thread(){
-            @Override
-            public void run(){
-                startAgent();
-            }
-        };
+        startAgent();
 
-        agentThread.start();
 
-        Thread environmentThread = new Thread(){
-            @Override
-            public void run() {
-            Main.startEnvironment();
-            }
-        };
+        startEnvironment();
 
-        environmentThread.start();
+
 
 
 
