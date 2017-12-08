@@ -37,7 +37,7 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) {
 
-        startAgent();
+
 
         GridPane root = new GridPane();
         root.setPadding(new Insets(10, 10, 10, 10));
@@ -68,14 +68,12 @@ public class Main extends Application {
 
 
 
-
-
-
     }
 
-    private void startAgent(){
+    private static void startAgent(){
         try {
-            CharStream stream = CharStreams.fromFileName("/home/valdirluiz/works/agent-app/src/sample/agent");
+
+            CharStream stream = CharStreams.fromFileName("/home/valdir/Documents/agent-app/src/sample/agent");
             AgentLexer lexer = new AgentLexer(stream);
             CommonTokenStream tokens = new CommonTokenStream(lexer);
 
@@ -101,43 +99,44 @@ public class Main extends Application {
     }
 
     private void moveUp(GridPane root){
-
-
-
         if(rowIndex < SIZE -1){
 
+            try {
+                Thread.sleep(1000l);
+
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
             rowIndex++;
+            root.getChildren().removeAll();
             addChildrens(rowIndex, columnIndex, root);
 
-
-
+            String content = "position("+(columnIndex+1)+","+(rowIndex+1) +").";
+            PositionSensor.positionObservable.onNext(content);
         }
-
-
-
-        String content = "position("+(columnIndex+1)+","+10 +").";
-        PositionSensor.positionObservable.onNext(content);
     }
 
     private void moveFront(GridPane root){
-
-
         if(columnIndex < SIZE -1) {
+
+            try {
+                Thread.sleep(1000l);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
 
             columnIndex++;
             addChildrens(rowIndex, columnIndex, root);
 
-            String content = "position("+(columnIndex+1)+","+10 +").";
+            String content = "position("+(columnIndex+1)+","+(rowIndex+1) +").";
             PositionSensor.positionObservable.onNext(content);
         }
-
-
-
-        String content = "position("+(columnIndex+1)+","+(rowIndex+1) +").";
-        PositionSensor.positionObservable.onNext(content);
     }
 
     private void addChildrens(int rowIndex, int columnIndex, GridPane root) {
+
         for(int y = 0; y < length; y++){
             for(int x = 0; x < width; x++) {
 
@@ -167,11 +166,29 @@ public class Main extends Application {
         }
     }
 
+    public  static  void startEnvironment(){
+        launch();
+    }
 
     public static void main(String[] args) {
-        launch(args);
 
+        Thread agentThread = new Thread(){
+            @Override
+            public void run(){
+                startAgent();
+            }
+        };
 
+        agentThread.start();
+
+        Thread environmentThread = new Thread(){
+            @Override
+            public void run() {
+            Main.startEnvironment();
+            }
+        };
+
+        environmentThread.start();
 
 
 
