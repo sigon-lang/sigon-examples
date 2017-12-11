@@ -22,6 +22,7 @@ import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
 import sensor.PositionSensor;
 
+import java.io.File;
 import java.io.IOException;
 
 
@@ -61,9 +62,6 @@ public class Main extends Application {
 
         scene.addEventFilter(KeyEvent.KEY_PRESSED, keyEvent -> {
             PositionSensor.positionObservable.onNext("position(0,0).");
-
-
-
         });
 
 
@@ -76,7 +74,8 @@ public class Main extends Application {
     private static void startAgent(){
         try {
 
-            CharStream stream = CharStreams.fromFileName("/home/valdir/Documents/agent-app/src/sample/agent");
+            File agentFile = new File("agent");
+            CharStream stream = CharStreams.fromFileName(agentFile.getAbsolutePath());
             AgentLexer lexer = new AgentLexer(stream);
             CommonTokenStream tokens = new CommonTokenStream(lexer);
 

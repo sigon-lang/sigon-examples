@@ -18,8 +18,8 @@ plans(fol):
 	plan(
 		position(10,10),
 		[
-			action(moveFront(),  position(_,_), position(_,_)),
-			action(moveUp(), position(_,_), position(_,_))
+			action(moveFront(),  not position(10,_), position(_,_)),
+			action(moveUp(), not position(_,10), position(_,_))
 		]
 		,
 		position(_,_),
