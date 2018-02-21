@@ -1,19 +1,17 @@
 
-sensors:
-    {name: "positionSensor", implementation: "sensor.PositionSensor"}
-
-actuators:
-    {name: "moveUp", implementation: "actuator.MoveUp"},
-    {name: "moveFront", implementation: "actuator.MoveFront"},
+communication:
+    sensor("positionSensor", "sensor.PositionSensor").
+    actuator("moveUp", "actuator.MoveUp").
+    actuator("moveFront", "actuator.MoveFront").
 
 
-beliefs(fol):
+beliefs:
+	position(0,0).
+
+desires:
 	position(1,1).
 
-desires(fol):
-	position(10,10).
-
-plans(fol):
+planning:
 	//plan(somethingToBeTrue, compoundaction, preconditions, postconditions)
 	plan(
 		position(10,10),
@@ -24,3 +22,4 @@ plans(fol):
 		,
 		position(_,_),
 		position(_,_)).
+
