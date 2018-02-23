@@ -9,7 +9,7 @@ beliefs:
 	position(0,0).
 
 desires:
-	position(1,1).
+	position(10,10).
 
 planning:
 	//plan(somethingToBeTrue, compoundaction, preconditions, postconditions)

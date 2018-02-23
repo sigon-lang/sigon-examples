@@ -1,6 +1,6 @@
 package sensor;
 
-import br.ufsc.ine.sensor.Sensor;
+import br.ufsc.ine.agent.context.communication.Sensor;
 import rx.subjects.PublishSubject;
 
 public class PositionSensor extends Sensor {

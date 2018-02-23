@@ -1,6 +1,7 @@
 package actuator;
 
-import br.ufsc.ine.actuator.Actuator;
+
+import br.ufsc.ine.agent.context.communication.Actuator;
 import javafx.application.Platform;
 import sample.Main;
 
