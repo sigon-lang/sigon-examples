@@ -49,25 +49,16 @@ public class Main extends Application {
 
         addChildrens(rowIndex, columnIndex, root);
 
-
         Scene scene = new Scene(root, 550, 550);
         scene.getStylesheets().add("sample/game.css");
-
 
         primaryStage.setTitle("Exemplo 1");
         primaryStage.setScene(scene);
         primaryStage.show();
 
-
-
         scene.addEventFilter(KeyEvent.KEY_PRESSED, keyEvent -> {
             PositionSensor.positionObservable.onNext("position(0,0).");
         });
-
-
-
-
-
 
     }
 
@@ -103,13 +94,9 @@ public class Main extends Application {
     public static void moveUp(){
         if(rowIndex < SIZE -1){
 
-            try {
-                Thread.sleep(500l);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
 
             rowIndex++;
+            columnIndex=0;
              
             addChildrens(rowIndex, columnIndex, root);
 
@@ -120,18 +107,6 @@ public class Main extends Application {
 
     public static  void moveFront( ){
         if(columnIndex < SIZE -1) {
-
-            try {
-                Thread.sleep(500l);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-
-            try {
-                Thread.sleep(1000l);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
 
 
             columnIndex++;
@@ -175,10 +150,6 @@ public class Main extends Application {
 
 
         }
-
-
-
-        System.out.println("Atualizar ambiente");
 
     }
 

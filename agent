@@ -17,7 +17,7 @@ planning:
 		position(10,10),
 		[
 			action(moveFront(),  not position(10,_), position(_,_)),
-			action(moveUp(), not position(_,10), position(_,_))
+			action(moveUp(),  position(10,_), position(_,_))
 		]
 		,
 		position(_,_),
