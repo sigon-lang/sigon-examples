@@ -1,8 +1,11 @@
 
 communication:
-    sensor("positionSensor", "sensor.PositionSensor").
-    actuator("moveUp", "actuator.MoveUp").
-    actuator("moveFront", "actuator.MoveFront").
+    sensor("r1Perception", "sensor.R1Perception").
+    sensor("r2Perception", "sensor.R2Perception").
+    actuator("moveTowards", "actuator.MoveTowards").
+    actuator("pickGarb", "actuator.PickGarb").
+    actuator("pickGarb", "actuator.DropGarb").
+    actuator("pickGarb", "actuator.BurnGarb").
 
 
 beliefs:
@@ -11,7 +14,7 @@ beliefs:
 desires:
 	position(10,10).
 
-planner:
+planning:
 	//plan(somethingToBeTrue, compoundaction, preconditions, postconditions)
 	plan(
 		position(10,10),

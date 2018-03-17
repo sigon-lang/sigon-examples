@@ -1,4 +1,4 @@
-package sample;
+package artigo;
 
 import agent.AgentLexer;
 import agent.AgentParser;
@@ -10,8 +10,6 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-
-
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
@@ -26,7 +24,7 @@ import java.io.File;
 import java.io.IOException;
 
 
-public class Main extends Application {
+public class Artigo extends Application {
 
     static GridPane root;
 
@@ -65,7 +63,7 @@ public class Main extends Application {
     private static void startAgent(){
         try {
 
-            File agentFile = new File("agent");
+            File agentFile = new File("artigo");
             CharStream stream = CharStreams.fromFileName(agentFile.getAbsolutePath());
             AgentLexer lexer = new AgentLexer(stream);
             CommonTokenStream tokens = new CommonTokenStream(lexer);

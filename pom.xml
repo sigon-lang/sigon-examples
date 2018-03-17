@@ -21,6 +21,30 @@
             <artifactId>rxjava-file</artifactId>
             <version>0.4.4</version>
         </dependency>
+
+        <!-- https://mvnrepository.com/artifact/net.sf.jason/jason -->
+        <dependency>
+            <groupId>net.sf.jason</groupId>
+            <artifactId>jason</artifactId>
+            <version>2.2</version>
+        </dependency>
+
+
+        <!-- Ver pq nao esta empacotando as libs do aspectj-->
+        <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjrt</artifactId>
+            <version>1.8.9</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjweaver</artifactId>
+            <version>1.8.9</version>
+        </dependency>
+
+
+
     </dependencies>
 
 

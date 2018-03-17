@@ -1,6 +1,7 @@
 package actuator;
 
 
+import br.ufsc.ine.agent.context.beliefs.BeliefsContextService;
 import br.ufsc.ine.agent.context.communication.Actuator;
 import javafx.application.Platform;
 import sample.Main;
@@ -13,6 +14,7 @@ public class MoveFront  extends Actuator {
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
+                System.out.println(BeliefsContextService.getInstance().getTheory());
                 Main.moveFront();
             }
         });
