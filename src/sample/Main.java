@@ -97,10 +97,10 @@ public class Main extends Application {
 
             rowIndex++;
             columnIndex=0;
-             
+
             addChildrens(rowIndex, columnIndex, root);
 
-            String content = "position("+(columnIndex)+","+(rowIndex+1) +").";
+            String content = "position(1,"+(rowIndex+1) +").";
             PositionSensor.positionObservable.onNext(content);
         }
     }
@@ -112,7 +112,7 @@ public class Main extends Application {
             columnIndex++;
             addChildrens(rowIndex, columnIndex, root);
 
-            String content = "position("+(columnIndex+1)+","+(rowIndex) +").";
+            String content = "position("+(columnIndex+1)+","+(rowIndex+1) +").";
             PositionSensor.positionObservable.onNext(content);
         }
     }
@@ -147,28 +147,16 @@ public class Main extends Application {
                 root.setColumnIndex(button,x);
                 root.getChildren().add(button);
             }
-
-
         }
 
     }
 
     public  static  void startEnvironment(){
         launch();
-
-
     }
 
     public static void main(String[] args) {
-
         startAgent();
-
-
         startEnvironment();
-
-
-
-
-
     }
 }

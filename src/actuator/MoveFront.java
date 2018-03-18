@@ -14,7 +14,7 @@ public class MoveFront  extends Actuator {
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
-                System.out.println(BeliefsContextService.getInstance().getTheory());
+
                 Main.moveFront();
             }
         });
