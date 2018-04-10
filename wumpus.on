@@ -1,0 +1,29 @@
+//This example is an adaptation from Jason Wumpus example.
+//In this version we try to perceive if there is a breeze or a stench in the environment.
+
+beliefs:
+
+	pos(1,1).            // my initial location
+	orientation(east).   // and orientation
+
+
+desires:
+	init.
+
+intentions:
+	//VALDIR: Could this be obtained from bridge rules?
+	init.
+
+
+planner:
+	plan(init, [sense(breeze), sense(stench)], _, _).
+
+
+
+
+//VALDIR: Can we update without using these bridge rules?
+!beliefs ~breeze(X,Y) :- communication not sense(breeze) and beliefs pos(X,Y).
+!beliefs breeze(X,Y) :- communication sense(breeze) and beliefs pos(X,Y).
+
+!beliefs ~stench(X,Y) :- communication not sense(stench) and beliefs pos(X,Y).
+!beliefs stench(X,Y) :- communication sense(stench) and beliefs pos(X,Y).
