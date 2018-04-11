@@ -1,0 +1,38 @@
+//This example is an adaptation from Jason Wumpus example.
+//In this version we try to perceive if there is a breeze or a stench in the environment.
+
+
+
+communication:
+    sensor("positionSensor", "sensor.PositionSensor").
+    actuator("moveUp", "actuator.MoveUp").
+    actuator("moveFront", "actuator.MoveFront").
+
+beliefs:
+
+	pos(1,1).            // my initial location
+	orientation(east).   // and orientation
+	// scenario borders
+	// borders(BottomLeftX, BottomLeftY, TopRightX, TopRightY) 
+	borders(1, 1, 4, 4). // for R&N
+
+
+desires:
+	init.
+	find(gold).
+
+intentions:
+	//VALDIR: Could this be obtained from bridge rules?
+	init.
+
+
+planner:
+	plan(init, [sense(breeze), sense(stench)]).
+	plan(find(gold), [moveFront(X,Y), orientantion(front)], not visited(X, Y), _ ).
+	action(sense(breeze)).
+	//just add a belief that the agents orientation is front.
+	action(orientation(front)).
+	//Aqui você pode usar a ação que você estava usando nos teus exemplos
+	action(moveFront(X,Y), pos(Z,Y), Z=Z+1).
+
+
