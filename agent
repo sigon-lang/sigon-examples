@@ -19,5 +19,5 @@ planner:
 		   ,action(moveUp(),  position(10,_), position(_,_))
 		]
 		,
-		position(_,_),
+		[position(0,0)],
 		position(_,_)).
