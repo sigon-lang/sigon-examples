@@ -8,13 +8,11 @@ communication:
 
 
 beliefs:
-
 	pos(1,1).            // my initial location
 	orientation(east).   // and orientation
 	// scenario borders
 	// borders(BottomLeftX, BottomLeftY, TopRightX, TopRightY)
 	borders(1, 1, 4, 4). // for R&N
-
 
 desires:
 	init.
@@ -28,9 +26,8 @@ intentions:
 planner:
 	plan(init, [action(sense(breeze)), action(sense(stench))]).
 	plan(find(gold), [action(moveFront(X,Y)), action(orientantion(front))], not visited(X, Y), _ ).
-	action(sense(breeze)).
+	//action(sense(breeze)).
 	//just add a belief that the agents orientation is front.
-	action(orientation(front)).
+	//action(orientation(front)).
 	//Aqui vocÃª pode usar a aÃ§Ã£o que vocÃª estava usando nos teus exemplos
-	action(moveFront(X,Y), pos(Z,Y), Z=Z+1).
-
+	//action(moveFront(X,Y), pos(Z,Y), Z=Z+1).
