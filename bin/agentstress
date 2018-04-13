@@ -1,0 +1,4 @@
+communication:
+    sensor("sensor", "stress.StressSensor").
+
+
