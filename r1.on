@@ -1,12 +1,18 @@
+communication:
+    sensor("positionSensor", "sensor.PositionSensor").
+    actuator("next", "actuator.NextSlot").
+
+
 beliefs:
 	at(P) :- pos(P, X, Y) & pos(r1, X, Y).
 
 desires:
 	check(slots).
-	burn(garbage).
 
 planner:
 	// Se o agente está em um lugar que tem lixo, ele precisa queimar ele.
 	// Se o agente está em um lugar que não tem lixo, ele pode mover para o próximo slot.
-	plan(check(slots), next(slot),not garbage(r1),_).
-	plan(garbage(r1), burn(garbage), garbage(r1),_).
+	plan(check(slots), [action(next(slot))], garbage(r1), _).
+	action(next(slot), not garbage(r1),_).
+	
+	
