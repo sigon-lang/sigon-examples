@@ -13,6 +13,9 @@ planner:
 	// Se o agente está em um lugar que tem lixo, ele precisa queimar ele.
 	// Se o agente está em um lugar que não tem lixo, ele pode mover para o próximo slot.
 	plan(check(slots), [action(next(slot))], garbage(r1), _).
-	action(next(slot), not garbage(r1),_).
+	action(next(P), garbage(P),_).
 	
 	
+//plan(check(slots), [action(next(Y))], Z, _).	
+//! planner Z :- beliefs at(P) ... .
+//! planner Y :- beliefs bolinha(Y) ... . 
