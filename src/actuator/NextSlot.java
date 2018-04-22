@@ -1,13 +1,10 @@
 package actuator;
 
-import br.ufsc.ine.agent.context.beliefs.BeliefsContextService;
-import br.ufsc.ine.agent.context.communication.Actuator;
-import br.ufsc.ine.agent.context.desires.DesiresContextService;
-import br.ufsc.ine.agent.context.intentions.IntentionsContextService;
-import javafx.application.Platform;
-import cleaning.Main;
-
 import java.util.List;
+
+import br.ufsc.ine.agent.context.communication.Actuator;
+import cleaning.Main;
+import javafx.application.Platform;
 
 public class NextSlot  extends Actuator {
 
@@ -19,7 +16,7 @@ public class NextSlot  extends Actuator {
             @Override
             public void run() {
 
-                Main.moveFront();
+                Main.nextSlot();
             }
         });
 
