@@ -93,13 +93,14 @@ public class Main extends Application {
 
     public static  void nextSlot(){
         if(columnIndex < SIZE -1) {
-
-
             columnIndex++;
             addChildrens(rowIndex, columnIndex, root);
-
             String content = "position("+(columnIndex+1)+","+(rowIndex+1) +").";
             PositionSensor.positionObservable.onNext(content);
+        } else{
+            rowIndex++;
+            columnIndex=0;
+
         }
     }
 
