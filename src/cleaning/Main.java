@@ -145,4 +145,9 @@ public class Main extends Application {
         startAgent();
         startEnvironment();
     }
+
+	public static void burnGarbage() {
+        String content = "not garbage.";
+        PositionSensor.positionObservable.onNext(content);
+	}
 }
