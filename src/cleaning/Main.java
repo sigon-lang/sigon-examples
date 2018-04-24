@@ -100,8 +100,13 @@ public class Main extends Application {
         } else{
             rowIndex++;
             columnIndex=0;
+            addChildrens(rowIndex, columnIndex, root);
+            String content = "position("+(columnIndex+1)+","+(rowIndex+1) +").";
+            PositionSensor.positionObservable.onNext(content);
 
         }
+
+
     }
 
     private static void addChildrens(int rowIndex, int columnIndex, GridPane root) {
@@ -144,7 +149,9 @@ public class Main extends Application {
 
     public static void main(String[] args) {
         startAgent();
-        startEnvironment();
+       startEnvironment();
+
+
     }
 
 	public static void burnGarbage() {
