@@ -2,7 +2,9 @@ package cleaning;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Random;
 
+import br.ufsc.ine.agent.context.beliefs.BeliefsContextService;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
@@ -32,13 +34,18 @@ public class Main extends Application {
     static int SIZE = 10;
     static int length = SIZE;
     static int width = SIZE;
+    static int garbage [][] = new int[SIZE][SIZE];
 
     public static  int rowIndex = 0;
     public static  int columnIndex = 0;
+    private static  int full = 3;
 
 
     @Override
     public void start(Stage primaryStage) {
+
+
+
 
         root = new GridPane();
         root.setPadding(new Insets(10, 10, 10, 10));
@@ -46,7 +53,22 @@ public class Main extends Application {
         root.setVgap(2);
         root.getStyleClass().addAll("game-root");
 
-        addChildrens(rowIndex, columnIndex, root);
+        //add the agent
+        addChildrens(null, null, root,"A");
+
+        //add garbage
+        addChildrens(3, 2, root,"G");
+        garbage[3][2] = 1;
+
+        //add garbage
+        addChildrens(4, 5, root,"G");
+        garbage[4][5] = 1;
+
+        //add garbage
+        addChildrens(6, 7, root,"G");
+        garbage[6][7] = 1;
+
+
 
         Scene scene = new Scene(root, 550, 550);
         scene.getStylesheets().add("sample/game.css");
@@ -93,24 +115,37 @@ public class Main extends Application {
 
     public static  void nextSlot(){
         if(columnIndex < SIZE -1) {
+            addChildrens(rowIndex, columnIndex, root,"");
             columnIndex++;
-            addChildrens(rowIndex, columnIndex, root);
-            String content = "position("+(columnIndex+1)+","+(rowIndex+1) +").";
-            PositionSensor.positionObservable.onNext(content);
+            if(garbage[rowIndex][columnIndex]==1){
+                PositionSensor.positionObservable.onNext("garbage.");
+            }
+             else {
+                addChildrens(rowIndex, columnIndex, root, "A");
+                String content = "position("+(columnIndex+1)+","+(rowIndex) +").";
+                PositionSensor.positionObservable.onNext(content);
+            }
+
+
         } else{
+            addChildrens(rowIndex, columnIndex, root,"");
             rowIndex++;
             columnIndex=0;
-            addChildrens(rowIndex, columnIndex, root);
-            String content = "position("+(columnIndex+1)+","+(rowIndex+1) +").";
-            PositionSensor.positionObservable.onNext(content);
+            if(garbage[rowIndex][columnIndex]==1){
+                PositionSensor.positionObservable.onNext("garbage");
+            } else {
+                addChildrens(rowIndex, columnIndex, root, "A");
+                String content = "position("+(columnIndex+1)+","+(rowIndex) +").";
+                PositionSensor.positionObservable.onNext(content);
+
+            }
 
         }
 
 
     }
 
-    private static void addChildrens(int rowIndex, int columnIndex, GridPane root) {
-
+    private static void addChildrens(Integer row, Integer column, GridPane root, String text) {
 
 
         for(int y = 0; y < length; y++){
@@ -127,17 +162,33 @@ public class Main extends Application {
 
 
                 if (y == rowIndex && x == columnIndex) {
-                    button.setText("A");
+
+                    if(text.equals("A") || text.equals("G")) {
+                        button.getStyleClass().addAll("game-button");
+                        button.setText("A");
+                    } else{
+                        button.getStyleClass().addAll("game-button-active");
+                        button.setText("");
+                    }
+                    root.setRowIndex(button,y);
+                    root.setColumnIndex(button,x);
+                    root.getChildren().add(button);
+                } else if ((row !=null && column!=null ) && (y == row && x == column)) {
+                    button.setText(text);
                     button.getStyleClass().addAll("game-button");
-                } else {
+                    root.setRowIndex(button,y);
+                    root.setColumnIndex(button,x);
+                    root.getChildren().add(button);
+                }  else if(row == null && column == null) {
                     button.setText("");
                     button.getStyleClass().addAll("game-button-active");
+                    root.setRowIndex(button,y);
+                    root.setColumnIndex(button,x);
+                    root.getChildren().add(button);
                 }
 
 
-                root.setRowIndex(button,y);
-                root.setColumnIndex(button,x);
-                root.getChildren().add(button);
+
             }
         }
 
@@ -147,15 +198,26 @@ public class Main extends Application {
         launch();
     }
 
-    public static void main(String[] args) {
-        startAgent();
+    public static void main(String[] args) { startAgent();
        startEnvironment();
-
+       startAgent();
 
     }
 
 	public static void burnGarbage() {
-        String content = "not garbage.";
-        PositionSensor.positionObservable.onNext(content);
+        full--;
+        addChildrens(rowIndex,columnIndex,root,"A");
+
+        if(full==0){
+           PositionSensor.positionObservable.onNext("clear.");
+        } else{
+            PositionSensor.positionObservable.onNext("-garbage.");
+        }
+
 	}
+
+	private static int radomBetween(int min, int max){
+        Random random = new Random();
+        return random.nextInt(max + 1 - min) + min;
+    }
 }

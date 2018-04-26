@@ -4,10 +4,9 @@ communication:
     actuator("burn", "actuator.BurnGarbage").
 
 
-
 intentions:
 	check(slots).
 
 planner:
-	plan(check(slots), [action(next(slot))], not garbage, _).
+	plan(check(slots), [action(next(slot))], [not garbage, not clear], _).
 	plan(check(slots), [action(burn(garbage))], garbage, not garbage). 
