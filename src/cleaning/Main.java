@@ -150,16 +150,10 @@ public class Main extends Application {
 
         for(int y = 0; y < length; y++){
             for(int x = 0; x < width; x++) {
-
-
                 Button button = new Button();
-
                 button.setPrefHeight(50);
                 button.setPrefWidth(50);
                 button.setAlignment(Pos.CENTER);
-
-
-
 
                 if (y == rowIndex && x == columnIndex) {
 
@@ -186,8 +180,6 @@ public class Main extends Application {
                     root.setColumnIndex(button,x);
                     root.getChildren().add(button);
                 }
-
-
 
             }
         }
