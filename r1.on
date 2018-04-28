@@ -3,6 +3,8 @@ communication:
     actuator("next", "actuator.NextSlot").
     actuator("burn", "actuator.BurnGarbage").
 
+desires:
+	check(slots).
 
 intentions:
 	check(slots).

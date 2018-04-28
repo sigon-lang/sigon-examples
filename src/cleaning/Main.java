@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.Random;
 
 import br.ufsc.ine.agent.context.beliefs.BeliefsContextService;
+import br.ufsc.ine.agent.context.plans.PlansContextService;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
@@ -78,7 +79,11 @@ public class Main extends Application {
         primaryStage.show();
 
         scene.addEventFilter(KeyEvent.KEY_PRESSED, keyEvent -> {
-            PositionSensor.positionObservable.onNext("position(0,0).");
+            System.out.println(
+                    PlansContextService.getInstance().getTheory()
+            );
+            PositionSensor.positionObservable.onNext("not clear.");
+            System.out.println(BeliefsContextService.getInstance().getTheory());
         });
 
     }
@@ -119,6 +124,7 @@ public class Main extends Application {
             columnIndex++;
             if(garbage[rowIndex][columnIndex]==1){
                 PositionSensor.positionObservable.onNext("garbage.");
+                System.out.println(BeliefsContextService.getInstance().getTheory());
             }
              else {
                 addChildrens(rowIndex, columnIndex, root, "A");
@@ -202,6 +208,7 @@ public class Main extends Application {
 
         if(full==0){
            PositionSensor.positionObservable.onNext("clear.");
+           System.out.println(BeliefsContextService.getInstance().getTheory());
         } else{
             PositionSensor.positionObservable.onNext("-garbage.");
         }
