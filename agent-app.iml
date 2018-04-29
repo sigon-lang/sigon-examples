@@ -9,7 +9,7 @@
     </content>
     <orderEntry type="jdk" jdkName="1.8" jdkType="JavaSDK" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="Maven: br.ufsc.ine:agent-project:0.0.1-SNAPSHOT" level="project" />
+    <orderEntry type="library" name="Maven: br.ufsc.ine:agent-project:0.0.2-SNAPSHOT" level="project" />
     <orderEntry type="library" name="Maven: org.antlr:antlr4:4.7" level="project" />
     <orderEntry type="library" name="Maven: org.antlr:antlr4-runtime:4.7" level="project" />
     <orderEntry type="library" name="Maven: org.antlr:antlr-runtime:3.5.2" level="project" />

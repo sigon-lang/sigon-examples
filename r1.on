@@ -8,7 +8,8 @@ desires:
 
 intentions:
 	check(slots).
+	clear.
 
 planner:
 	plan(check(slots), [action(next(slot))], [not garbage, not clear], _).
-	plan(check(slots), [action(burn(garbage))], garbage, not garbage). 
+	plan(clear, [action(burn(garbage))], garbage, clear).

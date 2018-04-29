@@ -79,9 +79,7 @@ public class Main extends Application {
         primaryStage.show();
 
         scene.addEventFilter(KeyEvent.KEY_PRESSED, keyEvent -> {
-            System.out.println(
-                    PlansContextService.getInstance().getTheory()
-            );
+
             PositionSensor.positionObservable.onNext("not clear.");
             System.out.println(BeliefsContextService.getInstance().getTheory());
         });
@@ -208,9 +206,11 @@ public class Main extends Application {
 
         if(full==0){
            PositionSensor.positionObservable.onNext("clear.");
+            System.out.println("Apos limpar:");
            System.out.println(BeliefsContextService.getInstance().getTheory());
         } else{
             PositionSensor.positionObservable.onNext("-garbage.");
+
         }
 
 	}
