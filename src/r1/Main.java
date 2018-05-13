@@ -20,7 +20,6 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
@@ -29,12 +28,14 @@ public class Main extends Application {
 
     static GridPane root;
 
-    static int SIZE = 10;
+    static int SIZE = 11;
     static int length = SIZE;
     static int width = SIZE;
 
     public static  int rowIndex = 0;
     public static  int columnIndex = 0;
+
+    private static boolean pedestrianSignalClose = false;
 
     @Override
     public void start(Stage primaryStage) {
@@ -106,12 +107,21 @@ public class Main extends Application {
 
 
 
-                if (y == rowIndex && x == columnIndex) {
-                    button.setText("A");
-                    button.getStyleClass().addAll("game-button");
+                if(x==5){
+                    if(y==5 && pedestrianSignalClose || y!=5) {
+                        button.getStyleClass().addAll("game-button-road");
+                    } else{
+                        button.getStyleClass().addAll("game-button-pedestrian");
+                    }
+                } else if(y==5){
+                    if(x==5 && !pedestrianSignalClose || x!=5) {
+                        button.getStyleClass().addAll("game-button-pedestrian");
+                    } else{
+                        button.getStyleClass().addAll("game-button-road");
+                    }
                 } else {
                     button.setText("");
-                    button.getStyleClass().addAll("game-button-active");
+                    button.getStyleClass().addAll("game-button");
                 }
 
 

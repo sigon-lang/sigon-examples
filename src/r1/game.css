@@ -4,9 +4,14 @@
 
 
 .game-button {
-   -fx-background-color: #ee6e73;
+  -fx-background-color: #cdc1b4;
 }
 
-.game-button-active {
-    -fx-background-color: #cdc1b4;
+.game-button-road {
+    -fx-background-color: #586069;
 }
+
+.game-button-pedestrian{
+    -fx-background-color: #f1e05a;
+}
+
