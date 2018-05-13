@@ -5,7 +5,6 @@ import br.ufsc.ine.agent.context.communication.Actuator;
 import javafx.application.Platform;
 import sample.Main;
 
-import java.awt.*;
 
 import java.util.List;
 

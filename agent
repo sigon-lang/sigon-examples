@@ -3,8 +3,13 @@ communication:
     actuator("moveUp", "actuator.MoveUp").
     actuator("moveFront", "actuator.MoveFront").
 
+beliefs:
+    position(0,0).
+
+desires:
+    position(10,10).
+
 planner:
-	//plan(somethingToBeTrue, compoundaction, preconditions, postconditions)
 	plan(
 		position(10,10),
 		[
@@ -15,10 +20,8 @@ planner:
 		[position(0,0)],
 		position(_,_)).
 
-desires:
-	andposition(10,10).
 
-beliefs:
-    position(0,0).
+
+
 
 

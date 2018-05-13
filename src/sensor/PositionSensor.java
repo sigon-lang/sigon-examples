@@ -7,10 +7,8 @@ public class PositionSensor extends Sensor {
 
     public static final PublishSubject<String> positionObservable = PublishSubject.create();
 
-
+    @Override
     public void run() {
-        positionObservable.subscribe(super.publisher);
-
-
+        positionObservable.subscribe(super.getPublisher());
     }
 }

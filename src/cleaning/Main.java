@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.util.Random;
 
 import br.ufsc.ine.agent.context.beliefs.BeliefsContextService;
-import br.ufsc.ine.agent.context.plans.PlansContextService;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
@@ -44,10 +43,6 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-
-
-
-
         root = new GridPane();
         root.setPadding(new Insets(10, 10, 10, 10));
         root.setHgap(2);
@@ -79,9 +74,7 @@ public class Main extends Application {
         primaryStage.show();
 
         scene.addEventFilter(KeyEvent.KEY_PRESSED, keyEvent -> {
-
             PositionSensor.positionObservable.onNext("not clear.");
-            System.out.println(BeliefsContextService.getInstance().getTheory());
         });
 
     }
@@ -117,6 +110,12 @@ public class Main extends Application {
 
 
     public static  void nextSlot(){
+
+        if(full==0) {
+            System.out.println("Apos limpar:");
+            PositionSensor.positionObservable.onNext("clear.");
+            System.out.println(BeliefsContextService.getInstance().getTheory());
+        }
         if(columnIndex < SIZE -1) {
             addChildrens(rowIndex, columnIndex, root,"");
             columnIndex++;
@@ -205,9 +204,8 @@ public class Main extends Application {
         addChildrens(rowIndex,columnIndex,root,"A");
 
         if(full==0){
-           PositionSensor.positionObservable.onNext("clear.");
-            System.out.println("Apos limpar:");
-           System.out.println(BeliefsContextService.getInstance().getTheory());
+          PositionSensor.positionObservable.onNext("-garbage.");
+
         } else{
             PositionSensor.positionObservable.onNext("-garbage.");
 
@@ -215,8 +213,5 @@ public class Main extends Application {
 
 	}
 
-	private static int radomBetween(int min, int max){
-        Random random = new Random();
-        return random.nextInt(max + 1 - min) + min;
-    }
+
 }
