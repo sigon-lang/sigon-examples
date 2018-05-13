@@ -1,4 +1,4 @@
-package sample;
+package r1;
 
 import java.io.File;
 import java.io.IOException;
@@ -23,7 +23,6 @@ import javafx.scene.control.Button;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
-import sensor.PositionSensor;
 
 
 public class Main extends Application {
@@ -48,22 +47,20 @@ public class Main extends Application {
         addChildrens(rowIndex, columnIndex, root);
 
         Scene scene = new Scene(root, 550, 550);
-        scene.getStylesheets().add("sample/game.css");
+        scene.getStylesheets().add("r1/game.css");
 
-        primaryStage.setTitle("Exemplo 1");
+        primaryStage.setTitle("R1");
         primaryStage.setScene(scene);
         primaryStage.show();
 
-        scene.addEventFilter(KeyEvent.KEY_PRESSED, keyEvent -> {
-            PositionSensor.positionObservable.onNext("position(0,0).");
-        });
+
 
     }
 
     private static void startAgent(){
         try {
 
-            File agentFile = new File("agent");
+            File agentFile = new File("r1.on");
             CharStream stream = CharStreams.fromFileName(agentFile.getAbsolutePath());
             AgentLexer lexer = new AgentLexer(stream);
             CommonTokenStream tokens = new CommonTokenStream(lexer);
@@ -125,24 +122,9 @@ public class Main extends Application {
         }
 
     }
-    public static  void moveFront( ){
-        if(columnIndex < SIZE -1) {
-            columnIndex++;
-            addChildrens(rowIndex, columnIndex, root);
-            String content = "position("+(columnIndex+1)+","+(rowIndex+1) +").";
-            PositionSensor.positionObservable.onNext(content);
-        }
-    }
 
-    public static void moveUp(){
-        if(rowIndex < SIZE -1){
-            rowIndex++;
-            columnIndex=0;
-            addChildrens(rowIndex, columnIndex, root);
-            String content = "position(1,"+(rowIndex+1) +").";
-            PositionSensor.positionObservable.onNext(content);
-        }
-    }
+
+
 
 
     public  static  void startEnvironment(){

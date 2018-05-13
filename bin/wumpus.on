@@ -4,7 +4,7 @@
 communication:
     sensor("positionSensor", "sensor.PositionSensor").
     actuator("moveUp", "actuator.MoveUp").
-    actuator("moveFront", "actuator.MoveFront").
+    actuator("moveFront", "actuator.ChangeSignal").
 
 
 beliefs:

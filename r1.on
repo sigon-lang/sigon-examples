@@ -1,15 +1,28 @@
 communication:
-    sensor("positionSensor", "sensor.PositionSensor").
-    actuator("next", "actuator.NextSlot").
-    actuator("burn", "actuator.BurnGarbage").
+    sensor("lookEnv", "sensor.LookEnv").
+    actuator("change", "actuator.ChangeSignal").
+    actuator("notify", "actuator.NotifyPedestrian").
+
+beliefs:
+    pedestrianSignal(green).
+    approaching(car).
+    not approaching(pedestrian).
 
 desires:
-	check(slots).
+    safe(pedestrian).
+    signal(green).
 
 intentions:
-	check(slots).
-	clear.
+    safe(pedestrian).
 
 planner:
-	plan(check(slots), [action(next(slot))], [not garbage, not clear], _).
-	plan(clear, [action(burn(garbage))], garbage, clear).
+
+    plan(safe(pedestrian),
+            [action(change(signal)), action(notify(pedestrian))],
+            [approaching(pedestrian), approaching(car), pedestrianSignal(green)],
+            [signal(red), safe(pedestrian)]).
+
+    plan(signal(green),
+            [action(change(signal))],
+            [signal(red), not approaching(pedestrian)],
+            signal(green)).
