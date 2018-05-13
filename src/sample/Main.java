@@ -1,5 +1,15 @@
 package sample;
 
+import java.io.File;
+import java.io.IOException;
+
+
+import org.antlr.v4.runtime.CharStream;
+import org.antlr.v4.runtime.CharStreams;
+import org.antlr.v4.runtime.CommonTokenStream;
+import org.antlr.v4.runtime.tree.ParseTree;
+import org.antlr.v4.runtime.tree.ParseTreeWalker;
+
 import agent.AgentLexer;
 import agent.AgentParser;
 import br.ufsc.ine.agent.Agent;
@@ -10,20 +20,10 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-
-
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
-import org.antlr.v4.runtime.CharStream;
-import org.antlr.v4.runtime.CharStreams;
-import org.antlr.v4.runtime.CommonTokenStream;
-import org.antlr.v4.runtime.tree.ParseTree;
-import org.antlr.v4.runtime.tree.ParseTreeWalker;
 import sensor.PositionSensor;
-
-import java.io.File;
-import java.io.IOException;
 
 
 public class Main extends Application {
@@ -37,10 +37,8 @@ public class Main extends Application {
     public static  int rowIndex = 0;
     public static  int columnIndex = 0;
 
-
     @Override
     public void start(Stage primaryStage) {
-
         root = new GridPane();
         root.setPadding(new Insets(10, 10, 10, 10));
         root.setHgap(2);
@@ -91,31 +89,8 @@ public class Main extends Application {
         }
     }
 
-    public static void moveUp(){
-        if(rowIndex < SIZE -1){
 
 
-            rowIndex++;
-            columnIndex=0;
-
-            addChildrens(rowIndex, columnIndex, root);
-
-            String content = "position(1,"+(rowIndex+1) +").";
-            PositionSensor.positionObservable.onNext(content);
-        }
-    }
-
-    public static  void moveFront( ){
-        if(columnIndex < SIZE -1) {
-
-
-            columnIndex++;
-            addChildrens(rowIndex, columnIndex, root);
-
-            String content = "position("+(columnIndex+1)+","+(rowIndex+1) +").";
-            PositionSensor.positionObservable.onNext(content);
-        }
-    }
 
     private static void addChildrens(int rowIndex, int columnIndex, GridPane root) {
 
@@ -150,14 +125,37 @@ public class Main extends Application {
         }
 
     }
+    public static  void moveFront( ){
+        if(columnIndex < SIZE -1) {
+            columnIndex++;
+            addChildrens(rowIndex, columnIndex, root);
+            String content = "position("+(columnIndex+1)+","+(rowIndex+1) +").";
+            PositionSensor.positionObservable.onNext(content);
+        }
+    }
+
+    public static void moveUp(){
+        if(rowIndex < SIZE -1){
+            rowIndex++;
+            columnIndex=0;
+            addChildrens(rowIndex, columnIndex, root);
+            String content = "position(1,"+(rowIndex+1) +").";
+            PositionSensor.positionObservable.onNext(content);
+        }
+    }
+
 
     public  static  void startEnvironment(){
         launch();
     }
 
-    public static void main(String[] args) {
-        startEnvironment();
-        startAgent();
+    public static void main(String[] args) { startAgent();
+       startEnvironment();
+      // startAgent();
 
     }
+
+
+
+
 }

@@ -1,10 +1,7 @@
 package actuator;
 
 
-import br.ufsc.ine.agent.context.beliefs.BeliefsContextService;
 import br.ufsc.ine.agent.context.communication.Actuator;
-import br.ufsc.ine.agent.context.desires.DesiresContextService;
-import br.ufsc.ine.agent.context.intentions.IntentionsContextService;
 import javafx.application.Platform;
 import sample.Main;
 
