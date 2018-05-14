@@ -11,4 +11,6 @@ intentions:
 
 planner:
 	plan(check(slots), [action(next(slot))], [not garbage, not clear], _).
-	plan(check(slots), [action(burn(garbage))], garbage, not garbage). 
+	plan(check(slots), [action(burn(garbage))], garbage, not garbage).
+
+
