@@ -16,12 +16,10 @@ intentions:
     safe(pedestrian).
 
 planner:
-
     plan(safe(pedestrian),
             [action(change(signal)), action(notify(pedestrian))],
             [approaching(pedestrian), approaching(car), pedestrianSignal(green)],
             [signal(red), safe(pedestrian)]).
-
     plan(signal(green),
             [action(change(signal))],
             [signal(red), not approaching(pedestrian)],
