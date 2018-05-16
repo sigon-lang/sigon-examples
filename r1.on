@@ -5,8 +5,8 @@ communication:
 
 beliefs:
     pedestrianSignal(green).
-    approaching(car).
-    not approaching(pedestrian).
+    approachingC(car).
+    not approachingP(pedestrian).
 
 desires:
     safe(pedestrian).
@@ -18,9 +18,10 @@ intentions:
 planner:
     plan(safe(pedestrian),
             [action(change(signal)), action(notify(pedestrian))],
-            [approaching(pedestrian), approaching(car), pedestrianSignal(green)],
+            [approachingP(pedestrian), approachingC(car), pedestrianSignal(green)],
             [signal(red), safe(pedestrian)]).
+            
     plan(signal(green),
             [action(change(signal))],
-            [signal(red), not approaching(pedestrian)],
+            [signal(red), not approachingP(pedestrian)],
             signal(green)).
