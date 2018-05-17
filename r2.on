@@ -1,0 +1,24 @@
+ communication:
+        sensor("lookEnv", "r2.LookEnv").
+        actuator("notify", "r2.NotifyPedestrian").
+        actuator("change", "r2.Change").
+        actuator("press", "r2.Press").
+
+    beliefs:
+        approaching(car).
+    desires:
+        be(safe).
+    intentions:
+        solve(game).
+
+    planner:
+        plan(be(safe),
+            [
+            action(change(lane), approaching(car), not approaching(car))
+            ],
+            [approaching(car)], [be(safe)]).
+
+
+        plan(solve(game),
+             [action(press(button))],
+             [not approaching(car)], [next(obstacle)]).
