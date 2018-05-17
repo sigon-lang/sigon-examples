@@ -12,12 +12,10 @@ import org.antlr.v4.runtime.tree.ParseTreeWalker;
 
 import agent.AgentLexer;
 import agent.AgentParser;
-import br.ufsc.ine.agent.Agent;
-import br.ufsc.ine.agent.context.beliefs.BeliefsContextService;
-import br.ufsc.ine.agent.context.communication.CommunicationContextService;
+import br.ufsc.ine.agent.Agent; 
 import br.ufsc.ine.parser.AgentWalker;
 import br.ufsc.ine.parser.VerboseListener;
-import sensor.LookEnv;
+import r1.LookEnv;
 
 public class Console {
 

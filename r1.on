@@ -1,7 +1,7 @@
 communication:
-    sensor("lookEnv", "sensor.LookEnv").
-    actuator("change", "actuator.ChangeSignal").
-    actuator("notify", "actuator.NotifyPedestrian").
+    sensor("lookEnv", "r1.LookEnv").
+    actuator("change", "r1.ChangeSignal").
+    actuator("notify", "r1.NotifyPedestrian").
 
 beliefs:
     pedestrianSignal(green).

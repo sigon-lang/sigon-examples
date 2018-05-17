@@ -1,4 +1,4 @@
-package sensor;
+package r2;
 
 
 import br.ufsc.ine.agent.context.communication.Sensor;
