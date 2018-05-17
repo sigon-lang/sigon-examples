@@ -10,18 +10,21 @@ beliefs:
 
 desires:
     safe(pedestrian).
-    signal(green).
-
+    pedestrianSignal(green).
+	aware(pedestrian).
 intentions:
     safe(pedestrian).
 
 planner:
     plan(safe(pedestrian),
-            [action(change(signal)), action(notify(pedestrian))],
-            [approachingP(pedestrian), approachingC(car), pedestrianSignal(green)],
-            [signal(red), safe(pedestrian)]).
-            
-    plan(signal(green),
             [action(change(signal))],
-            [signal(red), not approachingP(pedestrian)],
-            signal(green)).
+            [approachingP(pedestrian), approachingC(car), pedestrianSignal(green)],
+            [pedestrianSignal(red), safe(pedestrian)]).
+    plan(aware(pedestrian),
+            [action(notify(pedestrian))],
+            [safe(pedestrian)],_).
+            
+    plan(pedestrianSignal(green),
+            [action(change(signal))],
+            [pedestrianSignal(red), not approachingP(pedestrian)],
+            pedestrianSignal(green)).
