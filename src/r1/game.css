@@ -15,3 +15,14 @@
     -fx-background-color: #f1e05a;
 }
 
+.game-button-agent{
+    -fx-background-color: #ee6e73;
+    -fx-background-image: url("agent.png");
+    -fx-background-position: center;
+}
+
+.game-button-car{
+    -fx-background-color: cornflowerblue;
+    -fx-background-image: url("car.png");
+    -fx-background-position: center;
+}

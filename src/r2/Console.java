@@ -15,7 +15,7 @@ import agent.AgentParser;
 import br.ufsc.ine.agent.Agent;
 import br.ufsc.ine.parser.AgentWalker;
 import br.ufsc.ine.parser.VerboseListener;
-import r2.LookEnv;
+import r2.RightLookEnv;
 
 public class Console {
 
@@ -53,7 +53,7 @@ public class Console {
 			Scanner scanIn = new Scanner(System.in);
 			String inputString = scanIn.nextLine();
 			if (!inputString.isEmpty())
-				LookEnv.envObservable.onNext(inputString);
+				RightLookEnv.envObservable.onNext(inputString);
 		}
 	}
 

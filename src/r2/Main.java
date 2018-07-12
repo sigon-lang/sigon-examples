@@ -1,4 +1,4 @@
-package r1;
+package r2;
 
 import java.io.File;
 import java.io.IOException;
@@ -27,6 +27,8 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 public class Main extends Application {
+
+	private static final String profiling_file = "/home/valdir/Documents/exp1.csv";
 
 	static GridPane root;
 
@@ -58,20 +60,21 @@ public class Main extends Application {
 		primaryStage.setScene(scene);
 		primaryStage.show();
 
-		// executorService.scheduleWithFixedDelay(leftCars(), 0, 300,
-		// TimeUnit.MILLISECONDS);
+		executorService.scheduleWithFixedDelay(leftCars(), 0, 300, TimeUnit.MILLISECONDS);
 		executorService.scheduleWithFixedDelay(rightCars(), 0, 350, TimeUnit.MILLISECONDS);
 	}
 
-	public void changeLane() {
+	protected static void changeLane() {
 		if (left) {
 			root.getChildren().get(getButton(6, 5)).getStyleClass().clear();
 			root.getChildren().get(getButton(6, 5)).getStyleClass().addAll("game-button-road");
 			root.getChildren().get(getButton(6, 6)).getStyleClass().add("game-button-agent");
+			left = !left;
 		} else {
 			root.getChildren().get(getButton(6, 6)).getStyleClass().clear();
 			root.getChildren().get(getButton(6, 6)).getStyleClass().addAll("game-button-road");
 			root.getChildren().get(getButton(6, 5)).getStyleClass().add("game-button-agent");
+			left = !left;
 		}
 	}
 
@@ -80,16 +83,28 @@ public class Main extends Application {
 			try {
 				for (int i = 11; i > -2; i--) {
 					if (i == -1) {
-						root.getChildren().get(getButton(i + 1, 5)).getStyleClass().clear();
-						root.getChildren().get(getButton(i + 1, 5)).getStyleClass().addAll("game-button-road");
+						// root.getChildren().get(getButton(0, 5)).getStyleClass().clear();
+						root.getChildren().get(getButton(0, 5)).getStyleClass().addAll("game-button-car");
+						TimeUnit.MILLISECONDS.sleep(200);
+						root.getChildren().get(getButton(0, 5)).getStyleClass().clear();
+						root.getChildren().get(getButton(0, 5)).getStyleClass().addAll("game-button-road");
 					} else if (i < 11) {
-						TimeUnit.MILLISECONDS.sleep(100);
+						TimeUnit.MILLISECONDS.sleep(200);
 						root.getChildren().get(getButton(i + 1, 5)).getStyleClass().clear();
 						root.getChildren().get(getButton(i + 1, 5)).getStyleClass().addAll("game-button-road");
 						root.getChildren().get(getButton(i, 5)).getStyleClass().add("game-button-car");
 					} else {
 						root.getChildren().get(getButton(i, 5)).getStyleClass().add("game-button-car");
 					}
+
+					if (i == 8 && left) {
+						TimeUnit.MILLISECONDS.sleep(200);
+						LeftLookEnv.envObservable.onNext("approaching(car).");
+					} else if (i > 8 && left) {
+						TimeUnit.MILLISECONDS.sleep(200);
+						LeftLookEnv.envObservable.onNext("-approaching(car).");
+					}
+
 				}
 			} catch (InterruptedException e) {
 				e.printStackTrace();
@@ -100,18 +115,25 @@ public class Main extends Application {
 	private Runnable rightCars() {
 		return () -> {
 			try {
-				for (int i = 0; i < 12; i++) {
-					if (i < 12) {
-						TimeUnit.MILLISECONDS.sleep(100);
-						if (i == 0) {
-							root.getChildren().get(getButton(0, 6)).getStyleClass().clear();
-							root.getChildren().get(getButton(0, 6)).getStyleClass().addAll("game-button-road");
-						} else {
-							root.getChildren().get(getButton(i - 1, 6)).getStyleClass().clear();
-							root.getChildren().get(getButton(i - 1, 6)).getStyleClass().addAll("game-button-road");
-						}
+				for (int i = 0; i <= 12; i++) {
+					TimeUnit.MILLISECONDS.sleep(200);
+					if (i == 0) {
+						root.getChildren().get(getButton(0, 6)).getStyleClass().add("game-button-car");
+					} else if (i == 12) {
+						root.getChildren().get(getButton(11, 6)).getStyleClass().clear();
+						root.getChildren().get(getButton(11, 6)).getStyleClass().addAll("game-button-road");
+					} else {
+						root.getChildren().get(getButton(i - 1, 6)).getStyleClass().clear();
+						root.getChildren().get(getButton(i - 1, 6)).getStyleClass().addAll("game-button-road");
 						root.getChildren().get(getButton(i, 6)).getStyleClass().add("game-button-car");
 					}
+
+					if (i == 4 && !left) {
+						RightLookEnv.envObservable.onNext("approaching(car).");
+					} else if (!left && i < 4) {
+						RightLookEnv.envObservable.onNext("-approaching(car).");
+					}
+
 				}
 			} catch (InterruptedException e) {
 				e.printStackTrace();
@@ -122,7 +144,7 @@ public class Main extends Application {
 	private static void startAgent() {
 		try {
 
-			File agentFile = new File("r1.on");
+			File agentFile = new File("r2.on");
 			CharStream stream = CharStreams.fromFileName(agentFile.getAbsolutePath());
 			AgentLexer lexer = new AgentLexer(stream);
 			CommonTokenStream tokens = new CommonTokenStream(lexer);
@@ -138,6 +160,7 @@ public class Main extends Application {
 			walker.walk(agentWalker, tree);
 
 			Agent agent = new Agent();
+			agent.setProfilingFile(profiling_file);
 			agent.run(agentWalker);
 
 		} catch (IOException e) {
@@ -196,13 +219,29 @@ public class Main extends Application {
 	}
 
 	public static void main(String[] args) {
-		startAgent();
-		startEnvironment();
-		// startAgent();
+		Thread thread = new Thread() {
+			public void run() {
+				startAgent();
+			}
+		};
+		
+		Thread thread2 = new Thread() {
+			public void run() {
+				startEnvironment();
+			}
+		};
+		
+		
+		thread.start();
+		thread2.start();
+
+		
+
+	
 
 	}
 
-	private int getButton(int x, int y) {
+	private static int getButton(int x, int y) {
 		return x * SIZE + y;
 	}
 
