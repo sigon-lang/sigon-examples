@@ -28,7 +28,7 @@ import javafx.stage.Stage;
 
 public class Main extends Application {
 
-	private static final String profiling_file = "/home/valdir/Documents/exp1.csv";
+	private static final String profiling_file = "/home/rodrigor/Documentos/exp1.csv";
 
 	static GridPane root;
 

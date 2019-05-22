@@ -1,0 +1,20 @@
+communication:
+    sensor("lookEnv", "perceptionExperiment.SensorExperiment").
+    actuator("change", "perceptionExperiment.ActuatorExperiment").
+    
+
+beliefs:
+    
+
+desires:
+	x.
+	
+    
+intentions:
+    
+
+planner:            
+    plan(x,
+            _,
+            [perception(x)],
+            _).
