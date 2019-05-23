@@ -14,7 +14,129 @@ intentions:
     
 
 planner:            
-    plan(x,
-            _,
-            [perception(x)],
-            _).
+    plan(x,_,[a0],_).
+    plan(x,_,[a1],_).
+    plan(x,_,[a2],_).
+    plan(x,_,[a3],_).
+    plan(x,_,[a4],_).
+    plan(x,_,[a5],_).
+    plan(x,_,[a6],_).
+    plan(x,_,[a7],_).
+    plan(x,_,[a8],_).
+    plan(x,_,[a9],_).
+    
+    
+    
+    plan(x,_,[b0],_).
+    plan(x,_,[b1],_).
+    plan(x,_,[b2],_).
+    plan(x,_,[b3],_).
+    plan(x,_,[b4],_).
+    plan(x,_,[b5],_).
+    plan(x,_,[b6],_).
+    plan(x,_,[b7],_).
+    plan(x,_,[b8],_).
+    plan(x,_,[b9],_).
+    
+    
+    plan(x,_,[c0],_).
+    plan(x,_,[c1],_).
+    plan(x,_,[c2],_).
+    plan(x,_,[c3],_).
+    plan(x,_,[c4],_).
+    plan(x,_,[c5],_).
+    plan(x,_,[c6],_).
+    plan(x,_,[c7],_).
+    plan(x,_,[c8],_).
+    plan(x,_,[c9],_).
+    
+    
+    
+    plan(x,_,[d0],_).
+    plan(x,_,[d1],_).
+    plan(x,_,[d2],_).
+    plan(x,_,[d3],_).
+    plan(x,_,[d4],_).
+    plan(x,_,[d5],_).
+    plan(x,_,[d6],_).
+    plan(x,_,[d7],_).
+    plan(x,_,[d8],_).
+    plan(x,_,[d9],_).
+    
+    
+	plan(x,_,[e0],_).
+    plan(x,_,[e1],_).
+    plan(x,_,[e2],_).
+    plan(x,_,[e3],_).
+    plan(x,_,[e4],_).
+    plan(x,_,[e5],_).
+    plan(x,_,[e6],_).
+    plan(x,_,[e7],_).
+    plan(x,_,[e8],_).
+    plan(x,_,[e9],_).
+    
+	plan(x,_,[f0],_).
+    plan(x,_,[f1],_).
+    plan(x,_,[f2],_).
+    plan(x,_,[f3],_).
+    plan(x,_,[f4],_).
+    plan(x,_,[f5],_).
+    plan(x,_,[f6],_).
+    plan(x,_,[f7],_).
+    plan(x,_,[f8],_).
+    plan(x,_,[f9],_).
+    
+	plan(x,_,[g0],_).
+    plan(x,_,[g1],_).
+    plan(x,_,[g2],_).
+    plan(x,_,[g3],_).
+    plan(x,_,[g4],_).
+    plan(x,_,[g5],_).
+    plan(x,_,[g6],_).
+    plan(x,_,[g7],_).
+    plan(x,_,[g8],_).
+    plan(x,_,[g9],_).
+    
+    
+	plan(x,_,[h0],_).
+    plan(x,_,[h1],_).
+    plan(x,_,[h2],_).
+    plan(x,_,[h3],_).
+    plan(x,_,[h4],_).
+    plan(x,_,[h5],_).
+    plan(x,_,[h6],_).
+    plan(x,_,[h7],_).
+    plan(x,_,[h8],_).
+    plan(x,_,[h9],_).
+    
+    
+    
+	plan(x,_,[i0],_).
+    plan(x,_,[i1],_).
+    plan(x,_,[i2],_).
+    plan(x,_,[i3],_).
+    plan(x,_,[i4],_).
+    plan(x,_,[i5],_).
+    plan(x,_,[i6],_).
+    plan(x,_,[i7],_).
+    plan(x,_,[i8],_).
+    plan(x,_,[i9],_).
+    
+	plan(x,_,[j0],_).
+    plan(x,_,[j1],_).
+    plan(x,_,[j2],_).
+    plan(x,_,[j3],_).
+    plan(x,_,[j4],_).
+    plan(x,_,[j5],_).
+    plan(x,_,[j6],_).
+    plan(x,_,[j7],_).
+    plan(x,_,[j8],_).
+    plan(x,_,[j9],_).
+
+    
+    
+    
+    
+    
+    
+         
