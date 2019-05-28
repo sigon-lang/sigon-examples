@@ -1,6 +1,8 @@
 package perceptionExperiment;
 
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -27,17 +29,19 @@ import rx.subjects.PublishSubject;
 
 public class Main {
 
-	private static final String profiling_file = "/home/rodrigor/Documentos/exp1.csv";
+	private static final String profiling_file = "/home/rodrigor/Documentos/expCadaPercept.csv";
 
 	public static void main(String[] args) {
-
 		startAgent();
-		int total = 100;
-		
+		int total = 10;
+		long startTime = 0;
+  	  	
 		for (int i = 0; i < total; i++) {
+			startTime = System.nanoTime();
 			percept(i);
-
+			reasoningCycle(startTime);
 		}
+		
 
 	}
 
@@ -79,6 +83,20 @@ public class Main {
 		System.out.println("IC " + IntentionsContextService.getInstance().getTheory());
 		System.out.println("CC " + CommunicationContextService.getInstance().getTheory());
 
+	}
+	
+	private static void reasoningCycle(long startTime) {
+		if (profiling_file != null) {
+			long endTime = System.nanoTime();
+			long duration = (endTime - startTime) / 1000000;
+			try {
+				BufferedWriter writer = new BufferedWriter(new FileWriter(profiling_file, true));
+				writer.append(0 + ";" + duration + System.lineSeparator());
+				writer.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
 	}
 
 	private static void perceptFromFile(String fileName) {
