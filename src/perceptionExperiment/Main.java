@@ -34,12 +34,11 @@ public class Main {
 	public static void main(String[] args) {
 		startAgent();
 		int total = 10;
-		long startTime = 0;
-  	  	
+		long startTime = 0;  	  	
 		for (int i = 0; i < total; i++) {
 			startTime = System.nanoTime();
 			percept(i);
-			reasoningCycle(startTime);
+			reasoningCycle(startTime, i+1);
 		}
 		
 
@@ -85,13 +84,13 @@ public class Main {
 
 	}
 	
-	private static void reasoningCycle(long startTime) {
+	private static void reasoningCycle(long startTime, int cycle) {
 		if (profiling_file != null) {
 			long endTime = System.nanoTime();
 			long duration = (endTime - startTime) / 1000000;
 			try {
 				BufferedWriter writer = new BufferedWriter(new FileWriter(profiling_file, true));
-				writer.append(0 + ";" + duration + System.lineSeparator());
+				writer.append(cycle + ";" + duration + System.lineSeparator());
 				writer.close();
 			} catch (Exception e) {
 				e.printStackTrace();
