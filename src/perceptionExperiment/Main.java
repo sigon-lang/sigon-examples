@@ -29,25 +29,58 @@ import rx.subjects.PublishSubject;
 
 public class Main {
 
-	private static final String profiling_file = "/home/rodrigor/Documentos/expCadaPercept.csv";
+	private static final String profiling_file = "/home/rr/Documentos/expCadaPercept.csv";
 
 	public static void main(String[] args) {
+		String[] fields = {"ciclo", "número de percepções", "Passiva/Ativa", "cc->bc", "plano", "cc->cc", "percepções válidas"};
+		setHeader(fields);
 		startAgent();
-		int total = 10;
+		int total = 100;
 		long startTime = 0;  	  	
 		for (int i = 0; i < total; i++) {
-			startTime = System.nanoTime();
+			setValue(i+""); //ciclo atual
+			setValue(1+""); //quantidade total de percepcoes			
+			setValue("Ativa");
+			//startTime = System.nanoTime();
 			percept(i);
-			reasoningCycle(startTime, i+1);
+			//reasoningCycle(startTime, i+1);
+			
 		}
 		
 
+	}
+	
+	public static void setValue(String value) {
+		try {
+			BufferedWriter writer = new BufferedWriter(new FileWriter(profiling_file, true));
+			writer.append(value+";");
+			writer.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public static void setHeader(String[] fields) {
+		
+		try {
+			BufferedWriter writer = new BufferedWriter(new FileWriter(profiling_file, true));
+			for (String string : fields) {
+				writer.append(string + ";");
+				
+			}
+			writer.append(System.lineSeparator());
+			writer.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		
 	}
 
 	private static void startAgent() {
 		try {
 
-			File agentFile = new File("/home/rodrigor/sigon/sigon-examples/src/perceptionExperiment/percepcaoAtiva.on");
+			File agentFile = new File("/home/rr/sigon/sigon-examples/src/perceptionExperiment/percepcaoAtiva.on");
 			CharStream stream = CharStreams.fromFileName(agentFile.getAbsolutePath());
 			AgentLexer lexer = new AgentLexer(stream);
 			CommonTokenStream tokens = new CommonTokenStream(lexer);
@@ -90,7 +123,7 @@ public class Main {
 			long duration = (endTime - startTime) / 1000000;
 			try {
 				BufferedWriter writer = new BufferedWriter(new FileWriter(profiling_file, true));
-				writer.append(cycle + ";" + duration + System.lineSeparator());
+				writer.append(duration+";"+System.lineSeparator());
 				writer.close();
 			} catch (Exception e) {
 				e.printStackTrace();

@@ -160,7 +160,7 @@ public class Main extends Application {
 			walker.walk(agentWalker, tree);
 
 			Agent agent = new Agent();
-			agent.setProfilingFile(profiling_file);
+			//agent.setProfilingFile(profiling_file);
 			agent.run(agentWalker);
 
 		} catch (IOException e) {

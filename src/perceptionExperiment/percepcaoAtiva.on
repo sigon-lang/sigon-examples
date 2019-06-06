@@ -1,6 +1,6 @@
 communication:
-    sensor("lookEnv", "perceptionExperiment.SensorExperiment").
-    actuator("change", "perceptionExperiment.ActuatorExperiment").
+    sensor("sensor", "perceptionExperiment.SensorExperiment").
+    actuator("actuatorExperiment", "perceptionExperiment.ActuatorExperiment").
     
 
 beliefs:
@@ -52,7 +52,7 @@ planner:
     
     
     
-    plan(x,_,[d0],_).
+    plan(x,[action(actuatorExperiment(d0))],[d0],_).
     plan(x,_,[d1],_).
     plan(x,_,[d2],_).
     plan(x,_,[d3],_).
