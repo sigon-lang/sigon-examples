@@ -27,15 +27,15 @@ import br.ufsc.ine.parser.AgentWalker;
 import br.ufsc.ine.parser.VerboseListener;
 import rx.subjects.PublishSubject;
 
-public class Main {
+public class MainMultipleSensors {
 
-	private static final String profiling_file = "/home/rr/Documentos/expCadaPercept.csv";
+	private static final String profiling_file = "/home/rr/Documentos/expCadaPercept2.csv";
 
 	public static void main(String[] args) {
 		String[] fields = {"ciclo", "número de percepções", "Passiva/Ativa", "cc->bc", "plano", "cc->cc", "percepções válidas"};
 		setHeader(fields);
 		startAgent();
-		int total = 100;
+		int total = 1;
 		long startTime = 0;  	  	
 		for (int i = 0; i < total; i++) {
 			setValue(i+""); //ciclo atual
@@ -106,13 +106,32 @@ public class Main {
 
 	private static void percept(int index) {
 
-		SensorExperiment.msg.onNext("d" + index + ".");
+		
+		CarSensor.color.onNext("color(a0, red).");
+		CarSensor.position.onNext("position(a0, 0, 0, 0).");
+		CarSensor.license.onNext("license(a0, aaabbb).");
+		CarSensor.sound.onNext("sound(a0, none).");
+		CarSensor.model.onNext("model(a0, car).");
+		
+		PersonSensor.height.onNext("height(p0, 180).");
+		PersonSensor.position.onNext("position(p0, 0, 0, 0).");
+		PersonSensor.unknown.onNext("unknown(p0, true).");
+		
+		TrafficLightSensor.status.onNext("trafficLightStatus(t0, red).");
+		
+		SmartphoneSensor.connectedHeadphones.onNext("connectedHeadPhones(true).");
+		SmartphoneSensor.incommingMessages.onNext("incommingMessage(msg0, read).");
+		SmartphoneSensor.incommingMessages.onNext("incommingMessage(msg1, unread).");
+		SmartphoneSensor.typing.onNext("typing(true).");
+		SmartphoneSensor.visionImpaired.onNext("visionImpaired(true).");
+		
+		MessageReceiverSensor.message.onNext("message(agent0, content)");
 		
 
 		System.out.println("CC " + CommunicationContextService.getInstance().getTheory());
 		System.out.println("BC " + BeliefsContextService.getInstance().getTheory().toString());
 		System.out.println("DC " + DesiresContextService.getInstance().getTheory());
-		System.out.println("PC " + PlansContextService.getInstance().getTheory().toString());
+		//System.out.println("PC " + PlansContextService.getInstance().getTheory().toString());
 		System.out.println("IC " + IntentionsContextService.getInstance().getTheory());
 		System.out.println("CC " + CommunicationContextService.getInstance().getTheory());
 

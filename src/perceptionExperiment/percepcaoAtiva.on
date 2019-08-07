@@ -1,5 +1,6 @@
 communication:
-    sensor("sensor", "perceptionExperiment.SensorExperiment").
+    
+    sensor("sensor", "perceptionExperiment.CarSensor").
     actuator("actuatorExperiment", "perceptionExperiment.ActuatorExperiment").
     
 
@@ -13,9 +14,8 @@ desires:
 intentions:
     
 
-planner:            
-    plan(x,_,[a0],_).
-    plan(x,_,[a1],_).
+planner:
+    plan(x,_,[color(a0, red), position(a0, 0, 0, 0)],_).
     plan(x,_,[a2],_).
     plan(x,_,[a3],_).
     plan(x,_,[a4],_).
