@@ -80,7 +80,7 @@ public class MainMultipleSensors {
 	private static void startAgent() {
 		try {
 
-			File agentFile = new File("/home/rr/sigon/sigon-examples/src/perceptionExperiment/percepcaoAtiva.on");
+			File agentFile = new File("/home/rr/sigon/sigon-examples/src/perceptionExperiment/pedestrian");
 			CharStream stream = CharStreams.fromFileName(agentFile.getAbsolutePath());
 			AgentLexer lexer = new AgentLexer(stream);
 			CommonTokenStream tokens = new CommonTokenStream(lexer);
@@ -131,7 +131,7 @@ public class MainMultipleSensors {
 		System.out.println("CC " + CommunicationContextService.getInstance().getTheory());
 		System.out.println("BC " + BeliefsContextService.getInstance().getTheory().toString());
 		System.out.println("DC " + DesiresContextService.getInstance().getTheory());
-		//System.out.println("PC " + PlansContextService.getInstance().getTheory().toString());
+		System.out.println("PC " + PlansContextService.getInstance().getTheory().toString());
 		System.out.println("IC " + IntentionsContextService.getInstance().getTheory());
 		System.out.println("CC " + CommunicationContextService.getInstance().getTheory());
 
