@@ -30,10 +30,10 @@ intentions:
 
 
 planner:
-    plan(beAware(aux),[action(acousticActuator(X))],[connectedHeadPhones(true), person(X)],_).
-    plan(beAware(X),[action(visualActuator(X))],[visionImpaired(true), person(X)],_).
-    plan(beAware(X),[action(vibrateActuator(X))],[typing(true), person(X)],_).
-    plan(aux(t),[action(acousticActuator(X))],[connectedHeadPhones(true), person(X)],_).
+    plan(beAware(aux),[action(acousticActuator(aux))],[connectedHeadPhones(true), person(X)],_).
+    plan(beAware(aux),[action(visualActuator(aux))],[visionImpaired(true), person(aux)],_).
+    plan(beAware(aux),[action(vibrateActuator(aux))],[typing(true), person(aux)],_).
+    
     
     	
     

@@ -43,6 +43,7 @@ public class MainMultipleSensors {
 			setValue("Ativa");
 			//startTime = System.nanoTime();
 			percept(i);
+			perceptAux(i);
 			//reasoningCycle(startTime, i+1);
 			
 		}
@@ -120,6 +121,8 @@ public class MainMultipleSensors {
 		TrafficLightSensor.status.onNext("trafficLightStatus(t0, red).");
 		
 		SmartphoneSensor.connectedHeadphones.onNext("connectedHeadPhones(true).");
+		SmartphoneSensor.connectedHeadphones.onNext("connectedHeadPhones(false).");
+
 		SmartphoneSensor.incommingMessages.onNext("incommingMessage(msg0, read).");
 		SmartphoneSensor.incommingMessages.onNext("incommingMessage(msg1, unread).");
 		SmartphoneSensor.typing.onNext("typing(true).");
@@ -136,6 +139,40 @@ public class MainMultipleSensors {
 		System.out.println("CC " + CommunicationContextService.getInstance().getTheory());
 
 	}
+	
+private static void perceptAux(int index) {
+
+		
+		CarSensor.color.onNext("color(a0, red).");
+		CarSensor.position.onNext("position(a0, 0, 0, 0).");
+		CarSensor.license.onNext("license(a0, aaabbb).");
+		CarSensor.sound.onNext("sound(a0, none).");
+		CarSensor.model.onNext("model(a0, car).");
+		
+		PersonSensor.height.onNext("height(p0, 180).");
+		PersonSensor.position.onNext("position(p0, 0, 0, 0).");
+		PersonSensor.unknown.onNext("unknown(p0, true).");
+		
+		TrafficLightSensor.status.onNext("trafficLightStatus(t0, red).");
+		
+		SmartphoneSensor.connectedHeadphones.onNext("connectedHeadPhones(false).");
+		SmartphoneSensor.incommingMessages.onNext("incommingMessage(msg0, read).");
+		SmartphoneSensor.incommingMessages.onNext("incommingMessage(msg1, unread).");
+		SmartphoneSensor.typing.onNext("typing(true).");
+		SmartphoneSensor.visionImpaired.onNext("visionImpaired(true).");
+		
+		MessageReceiverSensor.message.onNext("message(agent0, content)");
+		
+
+		System.out.println("CC " + CommunicationContextService.getInstance().getTheory());
+		System.out.println("BC " + BeliefsContextService.getInstance().getTheory().toString());
+		System.out.println("DC " + DesiresContextService.getInstance().getTheory());
+		System.out.println("PC " + PlansContextService.getInstance().getTheory().toString());
+		System.out.println("IC " + IntentionsContextService.getInstance().getTheory());
+		System.out.println("CC " + CommunicationContextService.getInstance().getTheory());
+
+	}
+
 	
 	private static void reasoningCycle(long startTime, int cycle) {
 		if (profiling_file != null) {
