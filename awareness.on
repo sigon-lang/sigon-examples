@@ -1,0 +1,13 @@
+communication:
+    sensor("sensor", "perceptionExperiment.SmartphoneSensor").
+    actuator("notifyActuator", "perceptionExperiment.NotifyActuator").
+
+
+beliefs:
+	d0.
+	
+desires:
+    x.
+
+planner:
+    plan(x,[action(notifyActuator(d0))],[d0],_).
