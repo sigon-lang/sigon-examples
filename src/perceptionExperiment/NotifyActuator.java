@@ -18,15 +18,18 @@ public class NotifyActuator extends Actuator{
 	public void act(List<String> args) {
 		System.out.println("tESTE");
 		runProducer(args);
+		MainKafka.runProducer(args);
+		
 		
 	}
 	
 	static void runProducer(List<String> args) {
 		Producer<Long, String> producer = ProducerCreator.createProducer();
 
-		for (int index = 0; index < IKafkaConstants.MESSAGE_COUNT; index++) {
-			final ProducerRecord<Long, String> record = new ProducerRecord<Long, String>(IKafkaConstants.TOPIC_NAME,
+		for (int index = 0; index < 2; index++) {
+			final ProducerRecord<Long, String> record = new ProducerRecord<Long, String>("test1",
 					"This is record " + index);
+			
 			try {
 				RecordMetadata metadata = producer.send(record).get();
 				System.out.println("Record sent with key " + index + " to partition " + metadata.partition()

@@ -34,19 +34,29 @@ import br.ufsc.ine.parser.AgentWalker;
 import br.ufsc.ine.parser.VerboseListener;
 
 public class MainKafka {
-
+	static String produtorTopic;
+	static String consumeTopic;
+	static String broker;
+	
 	public static void main(String[] args) {
 		startAgent();
+		
+		consumeTopic = args[0];
+		produtorTopic = args[1];
+		//broker = args[3];
+		
+		
 		runConsumer();
 
 	}
 	
-	static void runProducer(List<String> args) {
+	static void runProducer(List<String> argsAct) {
 		Producer<Long, String> producer = ProducerCreator.createProducer();
 
-		for (int index = 0; index < IKafkaConstants.MESSAGE_COUNT; index++) {
-			final ProducerRecord<Long, String> record = new ProducerRecord<Long, String>(IKafkaConstants.TOPIC_NAME,
+		for (int index = 0; index < 2; index++) {
+			final ProducerRecord<Long, String> record = new ProducerRecord<Long, String>(produtorTopic,
 					"This is record " + index);
+			
 			try {
 				RecordMetadata metadata = producer.send(record).get();
 				System.out.println("Record sent with key " + index + " to partition " + metadata.partition()
@@ -63,7 +73,8 @@ public class MainKafka {
 	
 	
 	static void runConsumer() {
-		Consumer<Long, String> consumer = ConsumerCreator.createConsumer();
+		Consumer<Long, String> consumer = ConsumerCreator.createConsumer(consumeTopic);
+		
 
 		int noMessageToFetch = 0;
 
