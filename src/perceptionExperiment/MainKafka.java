@@ -160,6 +160,7 @@ public class MainKafka {
 	        
 	        System.out.println("CC "+CommunicationContextService.getInstance().getTheory());
 	        System.out.println("BC "+BeliefsContextService.getInstance().getTheory().toString());	
+	        System.out.println("RB "+BayesianContextService.getInstance().getBeliefs().toString());
 			
 
 	        System.out.println("DC " +DesiresContextService.getInstance().getTheory());

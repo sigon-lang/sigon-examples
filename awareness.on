@@ -1,13 +1,25 @@
 communication:
-    sensor("sensor", "perceptionExperiment.SmartphoneSensor").
+    sensor("sensor", "perceptionExperiment.SmartphoneSensor"). //informacoes relativas ao celular serao simuladas dentro do Sigon
+    sensor("sensorCommunication", "perceptionExperiment.CommunicationSensor"). //informacoes recebidas do SUMO (posicao do carro, velocidade e etc)
     actuator("notifyActuator", "perceptionExperiment.NotifyActuator").
 
 
 beliefs:
-	d0.
+		
+	//adiciona-se crencas vindas do cc
 	
 desires:
-    x.
+    notifyPedestrian.
+    
+intentions:
+	notifyPedestrian.
+    
+_bayesian:
+	aware(10).
+//contexto vai usar o bc para definir se ta aware ou nao
+
+//! beliefs aware(X) :- _bayesian aware(X) && _bayesian X > Y && .
+	
 
 planner:
-    plan(x,[action(notifyActuator(d0))],[d0],_).
+    plan(notifyPedestrian,[action(notifyActuator(d0))],[aware],_).
