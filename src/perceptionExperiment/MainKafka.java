@@ -44,7 +44,8 @@ public class MainKafka {
 		consumeTopic = args[0];
 		produtorTopic = args[1];
 		//broker = args[3];
-		
+		//perceptConsumer("car(veh0, no)");
+		//perceptConsumer("car(veh0, no)");
 		
 		runConsumer();
 
@@ -77,28 +78,31 @@ public class MainKafka {
 		
 
 		int noMessageToFetch = 0;
+		
 
 		while (true) {
 			final ConsumerRecords<Long, String> consumerRecords = consumer.poll(1000);
-			if (consumerRecords.count() == 0) {
+			/*if (consumerRecords.count() == 0) {
 				noMessageToFetch++;
 				if (noMessageToFetch > IKafkaConstants.MAX_NO_MESSAGE_FOUND_COUNT)
 					break;
 				else
 					continue;
-			}
+			}*/
 
 			consumerRecords.forEach(record -> {
-				System.out.println("Record Key " + record.key());
+				/*System.out.println("Record Key " + record.key());
 				System.out.println("Record value " + record.value());
+				record.value();
 				System.out.println("Record partition " + record.partition());
-				System.out.println("Record offset " + record.offset());
+				System.out.println("Record offset " + record.offset());*/
 				
-				percept();
+				perceptConsumer(record.value());
+				
 			});
 			consumer.commitAsync();
 		}
-		consumer.close();
+		//consumer.close();
 	}
 	
 	
@@ -136,6 +140,42 @@ public class MainKafka {
 	    }
 	}
 	
+	private static void perceptConsumer(String percept){
+        System.out.println("Percept");
+
+       
+       //ReadMessage.msg.onNext("enterAuction(house).");	        
+       // ReadMessage.msg.onNext("jobOffer/(salary(7000, 5000), time(5, 6)).");
+        //ReadMessage.msg.onNext("salaryOptions(7000, 10000, 12000).");
+        
+        /*jobOffer(
+		salary(7000, 10000, 12000),
+		jobDescription(qa, programmer, teamManager, projectManager),
+		car(leased, noLeased, noAgreement),
+		pension(0, 10, 20, noAgreement),
+		promotion(2, 4, noAgreement),
+		workingHours(8, 9, 10)
+		)*/
+        
+        //SmartphoneSensor.connectedHeadphones.onNext("car(chevete).");
+        SmartphoneSensor.connectedHeadphones.onNext(percept+".");	        
+		
+        
+        System.out.println("CC "+CommunicationContextService.getInstance().getTheory());
+        System.out.println("BC "+BeliefsContextService.getInstance().getTheory().toString());	
+        System.out.println("RB "+BayesianContextService.getInstance().getBeliefs().toString());
+		
+
+        System.out.println("DC " +DesiresContextService.getInstance().getTheory());
+        System.out.println("PC " +PlansContextService.getInstance().getTheory().toString());
+        System.out.println("IC "+IntentionsContextService.getInstance().getTheory());
+        System.out.println("CC " +CommunicationContextService.getInstance().getTheory());
+        
+        
+        
+
+    }
+	
 	
 	 private static void percept(){
 	        System.out.println("Percept");
@@ -154,8 +194,44 @@ public class MainKafka {
 			workingHours(8, 9, 10)
 			)*/
 	        
-	        SmartphoneSensor.connectedHeadphones.onNext("connectedHeadPhones(true).");
-			SmartphoneSensor.connectedHeadphones.onNext("connectedHeadPhones(false).");	        
+	        //SmartphoneSensor.connectedHeadphones.onNext("car(chevete).");
+	        SmartphoneSensor.connectedHeadphones.onNext("car(chevete, yes).");	        
+			
+	        
+	        System.out.println("CC "+CommunicationContextService.getInstance().getTheory());
+	        System.out.println("BC "+BeliefsContextService.getInstance().getTheory().toString());	
+	        System.out.println("RB "+BayesianContextService.getInstance().getBeliefs().toString());
+			
+
+	        System.out.println("DC " +DesiresContextService.getInstance().getTheory());
+	        System.out.println("PC " +PlansContextService.getInstance().getTheory().toString());
+	        System.out.println("IC "+IntentionsContextService.getInstance().getTheory());
+	        System.out.println("CC " +CommunicationContextService.getInstance().getTheory());
+	        
+	        
+	        
+
+	    }
+	 
+	 private static void perceptRemove(){
+	        System.out.println("Percept");
+
+	       
+	       //ReadMessage.msg.onNext("enterAuction(house).");	        
+	       // ReadMessage.msg.onNext("jobOffer/(salary(7000, 5000), time(5, 6)).");
+	        //ReadMessage.msg.onNext("salaryOptions(7000, 10000, 12000).");
+	        
+	        /*jobOffer(
+			salary(7000, 10000, 12000),
+			jobDescription(qa, programmer, teamManager, projectManager),
+			car(leased, noLeased, noAgreement),
+			pension(0, 10, 20, noAgreement),
+			promotion(2, 4, noAgreement),
+			workingHours(8, 9, 10)
+			)*/
+	        
+	        //SmartphoneSensor.connectedHeadphones.onNext("car(chevete).");
+	        SmartphoneSensor.connectedHeadphones.onNext("car(chevete, no).");	        
 			
 	        
 	        System.out.println("CC "+CommunicationContextService.getInstance().getTheory());

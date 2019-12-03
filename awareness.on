@@ -4,8 +4,10 @@ communication:
     actuator("notifyActuator", "perceptionExperiment.NotifyActuator").
 
 
-beliefs:
-		
+beliefs:	
+	//car(c). TODO: verificar o motivo de nao adicionar essa crenca ao receber o car(chevete)
+	vehicle :- car(X, Y).
+	//car(chevete).	
 	//adiciona-se crencas vindas do cc
 	
 desires:
@@ -19,7 +21,11 @@ _bayesian:
 //contexto vai usar o bc para definir se ta aware ou nao
 
 //! beliefs aware(X) :- _bayesian aware(X) && _bayesian X > Y && .
+
+//! beliefs vehicle :- beliefs car(c).
+	
 	
 
 planner:
-    plan(notifyPedestrian,[action(notifyActuator(d0))],[aware],_).
+    plan(notifyPedestrian,[action(notifyActuator(d0))],[aware],_). //pegue preC de RBC
+    //plan(notifyPedestrian,[action(notifyActuator(d0))],[car(X,_), not aware],_). //a ideia é que esse pegue coisas do BC

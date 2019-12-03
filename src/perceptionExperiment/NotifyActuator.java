@@ -16,8 +16,8 @@ public class NotifyActuator extends Actuator{
 
 	@Override
 	public void act(List<String> args) {
-		System.out.println("tESTE");
-		runProducer(args);
+		//System.out.println("tESTE");
+		//runProducer(args);
 		MainKafka.runProducer(args);
 		
 		
