@@ -11,6 +11,7 @@ import com.gaurav.kafka.constants.IKafkaConstants;
 import com.gaurav.kafka.producer.ProducerCreator;
 
 import br.ufsc.ine.agent.context.communication.Actuator;
+import br.ufsc.ine.context.bayesian.BayesianContextService;
 
 public class NotifyActuator extends Actuator{
 
@@ -23,26 +24,7 @@ public class NotifyActuator extends Actuator{
 		
 	}
 	
-	static void runProducer(List<String> args) {
-		Producer<Long, String> producer = ProducerCreator.createProducer();
-
-		for (int index = 0; index < 2; index++) {
-			final ProducerRecord<Long, String> record = new ProducerRecord<Long, String>("test1",
-					"This is record " + index);
-			
-			try {
-				RecordMetadata metadata = producer.send(record).get();
-				System.out.println("Record sent with key " + index + " to partition " + metadata.partition()
-						+ " with offset " + metadata.offset());
-			} catch (ExecutionException e) {
-				System.out.println("Error in sending record");
-				System.out.println(e);
-			} catch (InterruptedException e) {
-				System.out.println("Error in sending record");
-				System.out.println(e);
-			}
-		}
-	}
+	
 	
 
 }

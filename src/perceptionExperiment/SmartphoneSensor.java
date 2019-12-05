@@ -8,6 +8,12 @@ public class SmartphoneSensor extends Sensor{
 	public static final PublishSubject<String> connectedHeadphones = PublishSubject.create();
 	public static final PublishSubject<String> incommingMessages = PublishSubject.create();
 	public static final PublishSubject<String> visionImpaired = PublishSubject.create();
+	
+	public static final PublishSubject<String> soundSensor = PublishSubject.create();
+	public static final PublishSubject<String> screenSensor = PublishSubject.create();
+	
+	
+	
 
 
 	@Override
@@ -16,6 +22,8 @@ public class SmartphoneSensor extends Sensor{
 		connectedHeadphones.subscribe(super.publisher);
 		incommingMessages.subscribe(super.publisher);
 		visionImpaired.subscribe(super.publisher);
+		soundSensor.subscribe(super.publisher);
+		screenSensor.subscribe(super.publisher);
 		
 		
 	}

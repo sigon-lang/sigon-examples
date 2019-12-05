@@ -53,22 +53,20 @@ public class MainKafka {
 	
 	static void runProducer(List<String> argsAct) {
 		Producer<Long, String> producer = ProducerCreator.createProducer();
-
-		for (int index = 0; index < 2; index++) {
-			final ProducerRecord<Long, String> record = new ProducerRecord<Long, String>(produtorTopic,
-					"This is record " + index);
-			
-			try {
-				RecordMetadata metadata = producer.send(record).get();
-				System.out.println("Record sent with key " + index + " to partition " + metadata.partition()
-						+ " with offset " + metadata.offset());
-			} catch (ExecutionException e) {
-				System.out.println("Error in sending record");
-				System.out.println(e);
-			} catch (InterruptedException e) {
-				System.out.println("Error in sending record");
-				System.out.println(e);
-			}
+		System.out.println("Enviando mensagem: "+argsAct.get(0));
+		final ProducerRecord<Long, String> record = new ProducerRecord<Long, String>(produtorTopic,
+				argsAct.get(0));
+		
+		try {
+			RecordMetadata metadata = producer.send(record).get();
+			//System.out.println("Record sent with key " + argsAct.get(0) + " to partition " + metadata.partition()
+				//	+ " with offset " + metadata.offset());
+		} catch (ExecutionException e) {
+			System.out.println("Error in sending record");
+			System.out.println(e);
+		} catch (InterruptedException e) {
+			System.out.println("Error in sending record");
+			System.out.println(e);
 		}
 	}
 	
@@ -97,7 +95,7 @@ public class MainKafka {
 				System.out.println("Record partition " + record.partition());
 				System.out.println("Record offset " + record.offset());*/
 				
-				perceptConsumer(record.value());
+				perceptConsumer(record.value(), "yes", "yes");
 				
 			});
 			consumer.commitAsync();
@@ -140,25 +138,12 @@ public class MainKafka {
 	    }
 	}
 	
-	private static void perceptConsumer(String percept){
+	private static void perceptConsumer(String percept, String soundPerception, String screenPerception){
         System.out.println("Percept");
-
-       
-       //ReadMessage.msg.onNext("enterAuction(house).");	        
-       // ReadMessage.msg.onNext("jobOffer/(salary(7000, 5000), time(5, 6)).");
-        //ReadMessage.msg.onNext("salaryOptions(7000, 10000, 12000).");
         
-        /*jobOffer(
-		salary(7000, 10000, 12000),
-		jobDescription(qa, programmer, teamManager, projectManager),
-		car(leased, noLeased, noAgreement),
-		pension(0, 10, 20, noAgreement),
-		promotion(2, 4, noAgreement),
-		workingHours(8, 9, 10)
-		)*/
-        
-        //SmartphoneSensor.connectedHeadphones.onNext("car(chevete).");
-        SmartphoneSensor.connectedHeadphones.onNext(percept+".");	        
+        SmartphoneSensor.screenSensor.onNext("screen("+screenPerception+").");
+        SmartphoneSensor.soundSensor.onNext("sound("+soundPerception+").");
+        CommunicationSensor.approachingCar.onNext(percept+".");
 		
         
         System.out.println("CC "+CommunicationContextService.getInstance().getTheory());
@@ -195,7 +180,8 @@ public class MainKafka {
 			)*/
 	        
 	        //SmartphoneSensor.connectedHeadphones.onNext("car(chevete).");
-	        SmartphoneSensor.connectedHeadphones.onNext("car(chevete, yes).");	        
+	        SmartphoneSensor.connectedHeadphones.onNext("car(chevete, yes).");
+	        
 			
 	        
 	        System.out.println("CC "+CommunicationContextService.getInstance().getTheory());
