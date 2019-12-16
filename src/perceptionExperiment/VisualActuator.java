@@ -9,6 +9,8 @@ public class VisualActuator extends Actuator{
 	@Override
 	public void act(List<String> args) {
 		System.out.println("visual Actuator");
+		Main.setValue("actuatorExperiment("+args.get(0)+")");
+
 
 		
 	}

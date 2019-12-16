@@ -9,6 +9,8 @@ public class AcousticActuator extends Actuator{
 	@Override
 	public void act(List<String> args) {
 		System.out.println("acoustic Actuator ");
+		Main.setValue("actuatorExperiment("+args.get(0)+")");
+
 		
 	}
 

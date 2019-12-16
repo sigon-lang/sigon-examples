@@ -1,6 +1,8 @@
 package perceptionExperiment;
 
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
@@ -38,7 +40,13 @@ public class MainKafka {
 	static String consumeTopic;
 	static String broker;
 	
+	
+	private static final String profiling_file = "/home/rr/Documentos/expCadaPercept2.csv";
+
+	
 	public static void main(String[] args) {
+		String[] fields = {"ciclo", "número de percepções", "Passiva/Ativa", "cc->bc", "plano", "cc->cc", "percepções válidas"};
+		setHeader(fields);
 		startAgent();
 		
 		consumeTopic = args[0];
@@ -49,6 +57,33 @@ public class MainKafka {
 		
 		runConsumer();
 
+	}
+	
+	public static void setValue(String value) {
+		try {
+			BufferedWriter writer = new BufferedWriter(new FileWriter(profiling_file, true));
+			writer.append(value+";");
+			writer.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public static void setHeader(String[] fields) {
+		
+		try {
+			BufferedWriter writer = new BufferedWriter(new FileWriter(profiling_file, true));
+			for (String string : fields) {
+				writer.append(string + ";");
+				
+			}
+			writer.append(System.lineSeparator());
+			writer.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		
 	}
 	
 	static void runProducer(List<String> argsAct) {
@@ -72,11 +107,7 @@ public class MainKafka {
 	
 	
 	static void runConsumer() {
-		Consumer<Long, String> consumer = ConsumerCreator.createConsumer(consumeTopic);
-		
-
-		int noMessageToFetch = 0;
-		
+		Consumer<Long, String> consumer = ConsumerCreator.createConsumer(consumeTopic);		
 
 		while (true) {
 			final ConsumerRecords<Long, String> consumerRecords = consumer.poll(1000);
@@ -94,6 +125,7 @@ public class MainKafka {
 				record.value();
 				System.out.println("Record partition " + record.partition());
 				System.out.println("Record offset " + record.offset());*/
+				System.out.println("Timestamp: "+record.timestamp()); 
 				
 				perceptConsumer(record.value(), "yes", "yes");
 				
@@ -131,6 +163,8 @@ public class MainKafka {
 	        
 	        ContextService[] cc = new ContextService[] {bc};
 	        Agent agent = new Agent();	    
+			agent.setProfilingFile(profiling_file);
+
 	        agent.run(agentWalker, cc);
 
 	    } catch (IOException e) {
