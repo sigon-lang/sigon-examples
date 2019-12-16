@@ -4,6 +4,7 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
@@ -45,7 +46,9 @@ public class MainKafka {
 
 	
 	public static void main(String[] args) {
-		String[] fields = {"ciclo", "número de percepções", "Passiva/Ativa", "cc->bc", "plano", "cc->cc", "percepções válidas"};
+		//String[] fields = {"ciclo", "número de percepções", "Passiva/Ativa", "cc->bc", "plano", "cc->cc", "percepções válidas"};
+		//String[] fields = {"kafka->cc" , "cc->bc", "plano", "cc->cc", "percepções válidas"};
+		String[] fields = {"Início" , "Fim"};
 		setHeader(fields);
 		startAgent();
 		
@@ -54,7 +57,11 @@ public class MainKafka {
 		//broker = args[3];
 		//perceptConsumer("car(veh0, no)");
 		//perceptConsumer("car(veh0, no)");
-		
+/*		setValue(i+""); //ciclo atual
+		setValue(1+""); //quantidade total de percepcoes
+		i++;
+		setValue("Ativa");*/
+		//perceptConsumer("car(chevete)", "yes", "yes");
 		runConsumer();
 
 	}
@@ -89,13 +96,23 @@ public class MainKafka {
 	static void runProducer(List<String> argsAct) {
 		Producer<Long, String> producer = ProducerCreator.createProducer();
 		System.out.println("Enviando mensagem: "+argsAct.get(0));
+		//setValue("actuatorExperiment("+argsAct.get(0)+")");
+
 		final ProducerRecord<Long, String> record = new ProducerRecord<Long, String>(produtorTopic,
 				argsAct.get(0));
 		
 		try {
+			setTimeStamp(System.currentTimeMillis(),"\n");
+			
 			RecordMetadata metadata = producer.send(record).get();
+			
+			//System.out.println("Meu timestamp "+metadata.timestamp());
 			//System.out.println("Record sent with key " + argsAct.get(0) + " to partition " + metadata.partition()
 				//	+ " with offset " + metadata.offset());
+			
+			//profiling(startTime);
+			
+
 		} catch (ExecutionException e) {
 			System.out.println("Error in sending record");
 			System.out.println(e);
@@ -104,7 +121,7 @@ public class MainKafka {
 			System.out.println(e);
 		}
 	}
-	
+	private static long startTime;
 	
 	static void runConsumer() {
 		Consumer<Long, String> consumer = ConsumerCreator.createConsumer(consumeTopic);		
@@ -118,24 +135,44 @@ public class MainKafka {
 				else
 					continue;
 			}*/
+			
+			
 
+			
 			consumerRecords.forEach(record -> {
+				startTime = System.nanoTime();
+				//System.out.println("Inicio msg: "+startTime);
+				Timestamp tp = new Timestamp(System.currentTimeMillis());
 				/*System.out.println("Record Key " + record.key());
 				System.out.println("Record value " + record.value());
 				record.value();
 				System.out.println("Record partition " + record.partition());
 				System.out.println("Record offset " + record.offset());*/
 				System.out.println("Timestamp: "+record.timestamp()); 
+				setTimeStamp(record.timestamp(),"");
 				
 				perceptConsumer(record.value(), "yes", "yes");
+				//profiling(startTime);
 				
 			});
+			
 			consumer.commitAsync();
 		}
 		//consumer.close();
 	}
 	
 	
+	private static void setTimeStamp(long timestamp, String quebraLinha) {
+		try {
+			BufferedWriter writer = new BufferedWriter(new FileWriter(profiling_file, true));
+			writer.append(timestamp + ";"+quebraLinha);
+			writer.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+	}
+
 	private static void startAgent(){
 	    try {
 
@@ -171,6 +208,8 @@ public class MainKafka {
 	        System.out.println("I/O exception.");
 	    }
 	}
+	
+	public static int i = 0;
 	
 	private static void perceptConsumer(String percept, String soundPerception, String screenPerception){
         System.out.println("Percept");
@@ -268,6 +307,24 @@ public class MainKafka {
 	        
 
 	    }
+	 
+	    private static void profiling(long startTime) {
+			if (profiling_file != null) {
+				long endTime = System.nanoTime();
+				Timestamp tp = new Timestamp(System.currentTimeMillis());
+				System.out.println(tp);
+				long duration = (endTime - startTime) / 1000000;
+				System.out.println(endTime);
+				System.out.println("Duracao: "+duration);
+				try {
+					BufferedWriter writer = new BufferedWriter(new FileWriter(profiling_file, true));
+					writer.append(duration + ";");
+					writer.close();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		}
 
 
 }

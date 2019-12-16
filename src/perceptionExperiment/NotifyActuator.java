@@ -19,7 +19,7 @@ public class NotifyActuator extends Actuator{
 	public void act(List<String> args) {
 		//System.out.println("tESTE");
 		//runProducer(args);
-		Main.setValue("actuatorExperiment("+args.get(0)+")");
+		//Main.setValue("actuatorExperiment("+args.get(0)+")");
 		MainKafka.runProducer(args);
 		
 	}
