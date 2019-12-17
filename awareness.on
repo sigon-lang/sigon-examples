@@ -27,5 +27,8 @@ _bayesian:
 	
 
 planner:
+     //plan(notifyPedestrian,[action(notifyActuator(notifyPedestrian))],[aware, car(_), sound(_), screen(_)],_). //pegue preC de RBC
+    //plan(notifyPedestrian,[action(notifyActuator(notNotifyPedestrian))],[not aware, car(_), sound(_), screen(_)],_). //a ideia é que esse pegue coisas do BC
     plan(notifyPedestrian,[action(notifyActuator(notifyPedestrian))],[aware],_). //pegue preC de RBC
     plan(notifyPedestrian,[action(notifyActuator(notNotifyPedestrian))],[not aware],_). //a ideia é que esse pegue coisas do BC
+    

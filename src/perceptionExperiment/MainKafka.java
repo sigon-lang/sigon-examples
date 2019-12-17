@@ -42,13 +42,13 @@ public class MainKafka {
 	static String broker;
 	
 	
-	private static final String profiling_file = "/home/rr/Documentos/expCadaPercept2.csv";
+	private static final String profiling_file = "/home/rr/Documentos/timestamp.csv";
 
 	
 	public static void main(String[] args) {
 		//String[] fields = {"ciclo", "número de percepções", "Passiva/Ativa", "cc->bc", "plano", "cc->cc", "percepções válidas"};
 		//String[] fields = {"kafka->cc" , "cc->bc", "plano", "cc->cc", "percepções válidas"};
-		String[] fields = {"Início" , "Fim"};
+		String[] fields = {"Inicio" , "Fim"};
 		setHeader(fields);
 		startAgent();
 		
@@ -102,9 +102,10 @@ public class MainKafka {
 				argsAct.get(0));
 		
 		try {
-			setTimeStamp(System.currentTimeMillis(),"\n");
+			//setTimeStamp(System.currentTimeMillis(),"Fim\n");
 			
 			RecordMetadata metadata = producer.send(record).get();
+			setTimeStamp(metadata.timestamp(),"\n");
 			
 			//System.out.println("Meu timestamp "+metadata.timestamp());
 			//System.out.println("Record sent with key " + argsAct.get(0) + " to partition " + metadata.partition()
@@ -162,7 +163,7 @@ public class MainKafka {
 	}
 	
 	
-	private static void setTimeStamp(long timestamp, String quebraLinha) {
+	public static void setTimeStamp(long timestamp, String quebraLinha) {
 		try {
 			BufferedWriter writer = new BufferedWriter(new FileWriter(profiling_file, true));
 			writer.append(timestamp + ";"+quebraLinha);
@@ -215,8 +216,10 @@ public class MainKafka {
         System.out.println("Percept");
         
         SmartphoneSensor.screenSensor.onNext("screen("+screenPerception+").");
-        SmartphoneSensor.soundSensor.onNext("sound("+soundPerception+").");
+        SmartphoneSensor.soundSensor.onNext("sound("+soundPerception+").");//para cada sensor é feito um ciclo de raciocinio
         CommunicationSensor.approachingCar.onNext(percept+".");
+//        CommunicationSensor.approachingCar.onNe(percept+".");
+        
 		
         
         System.out.println("CC "+CommunicationContextService.getInstance().getTheory());
