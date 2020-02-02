@@ -29,7 +29,7 @@ import br.ufsc.ine.parser.VerboseListener;
 import perceptionExperiment.kafka.ConsumerCreator;
 import perceptionExperiment.kafka.ProducerCreator;
 
-public class MainKafka {
+public class MainFinal {
 	static String produtorTopic;
 	static String consumeTopic;
 	static String broker;
@@ -47,8 +47,8 @@ public class MainKafka {
 		startAgent();
 		
 		
-		consumeTopic = args[0];
-		produtorTopic = args[1];
+		//consumeTopic = args[0];
+		//podutorTopic = args[1];
 		//broker = args[3];
 		//perceptConsumer("car(veh0, no)");
 		//perceptConsumer("car(veh0, no)");
@@ -57,7 +57,7 @@ public class MainKafka {
 		i++;
 		setValue("Ativa");*/
 		//perceptConsumer("car(chevete)", "yes", "yes");
-		runConsumer();
+		//runConsumer();
 
 	}
 	
@@ -208,6 +208,22 @@ public class MainKafka {
 	    } catch (IOException e) {
 	        System.out.println("I/O exception.");
 	    }
+	}
+	
+	public static String execute(String percept) {
+		//SmartphoneSensor.screenSensor.onNext("screen("+screenPerception+").");
+        //SmartphoneSensor.soundSensor.onNext("sound("+soundPerception+").");//para cada sensor é feito um ciclo de raciocinio
+        //CommunicationSensor.approachingCar.onNext(percept+".");
+		
+		String[] percepts = percept.split(";");
+		if (percept.length() != 3) {
+			return null;
+		}
+		
+		CommunicationSensor.approachingCar.onNext(percepts[0]+".");
+		SmartphoneSensor.soundSensor.onNext("sound("+percepts[1]+").");
+		SmartphoneSensor.screenSensor.onNext("screen("+percepts[2]+").");
+		return "notify(pedestrian)";
 	}
 	
 	public static int i = 0;

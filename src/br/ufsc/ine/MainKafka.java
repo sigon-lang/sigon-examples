@@ -1,4 +1,4 @@
-package perceptionExperiment;
+package br.ufsc.ine.perceptionExperiment;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -19,15 +19,21 @@ import org.apache.kafka.clients.producer.Producer;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.apache.kafka.clients.producer.RecordMetadata;
 
+import perceptionExperiment.kafka.ConsumerCreator;
+import perceptionExperiment.kafka.ProducerCreator;
+
 import agent.AgentLexer;
 import agent.AgentParser;
 import br.ufsc.ine.agent.Agent;
 import br.ufsc.ine.agent.context.ContextService;
+import br.ufsc.ine.agent.context.beliefs.BeliefsContextService;
+import br.ufsc.ine.agent.context.communication.CommunicationContextService;
+import br.ufsc.ine.agent.context.desires.DesiresContextService;
+import br.ufsc.ine.agent.context.intentions.IntentionsContextService;
+import br.ufsc.ine.agent.context.plans.PlansContextService;
 import br.ufsc.ine.context.bayesian.BayesianContextService;
 import br.ufsc.ine.parser.AgentWalker;
 import br.ufsc.ine.parser.VerboseListener;
-import perceptionExperiment.kafka.ConsumerCreator;
-import perceptionExperiment.kafka.ProducerCreator;
 
 public class MainKafka {
 	static String produtorTopic;
@@ -35,17 +41,15 @@ public class MainKafka {
 	static String broker;
 	
 	
-	private static String profiling_file = "";
+	private static final String profiling_file = "/home/rr/Documentos/timestamp.csv";
 	private static String car;
 	
 	public static void main(String[] args) {
 		//String[] fields = {"ciclo", "número de percepções", "Passiva/Ativa", "cc->bc", "plano", "cc->cc", "percepções válidas"};
 		//String[] fields = {"kafka->cc" , "cc->bc", "plano", "cc->cc", "percepções válidas"};
 		String[] fields = {"Inicio" , "Fim"};
-		profiling_file = args[2];
 		setHeader(fields);
 		startAgent();
-		
 		
 		consumeTopic = args[0];
 		produtorTopic = args[1];

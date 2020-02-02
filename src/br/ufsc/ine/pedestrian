@@ -1,0 +1,43 @@
+communication:
+    
+    sensor("sensor", "perceptionExperiment.CarSensor").
+    sensor("smartphoneSensor", "perceptionExperiment.SmartphoneSensor").
+    actuator("visualActuator", "perceptionExperiment.VisualActuator").
+    actuator("acousticActuator", "perceptionExperiment.AcousticActuator").
+    actuator("vibrateActuator", "perceptionExperiment.VibrateActuator").
+    
+
+beliefs:
+	person(aux).
+	approaching(car).
+    
+
+desires:
+	beAware(X).
+	destination(Z).
+	waitingCar(X,Z).
+	not runOver(X).
+	acousticMessage(X).
+    
+intentions:
+	//not run over
+	
+    
+//planos garantem que ele nao vai ser atropelado? 
+//como fazer o binding com o tipo de messagem? acustica, visual e etc?
+//o objetivo de not run over só será atingido quando ele acabar de atravessar a rua?
+//something to be true nao seria apenas uma mensagem e o action deveria ter o binding com o message(X,Y)?
+
+
+planner:
+    plan(beAware(aux),[action(acousticActuator(aux))],[connectedHeadPhones(true), person(X)],_).
+    plan(beAware(aux),[action(visualActuator(aux))],[visionImpaired(true), person(aux)],_).
+    plan(beAware(aux),[action(vibrateActuator(aux))],[typing(true), person(aux)],_).
+    
+    
+    	
+    
+    
+    
+    
+    
