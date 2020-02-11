@@ -9,15 +9,10 @@ public class NotifyActuator extends Actuator{
 
 	@Override
 	public void act(List<String> args) {
-		//System.out.println("tESTE");
-		//runProducer(args);
-		//Main.setValue("actuatorExperiment("+args.get(0)+")");
-		counterMsg++;
-		if(counterMsg == 3) {
-			//MainKafka.setTimeStamp(System.currentTimeMillis(),"\n");
-			MainKafka.runProducer(args);
-			counterMsg = 0;
-		}
+		System.out.println("tESTE");
+
+		
+		MainFinal.setNotify(args);
 		
 		
 	}
