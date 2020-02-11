@@ -82,7 +82,7 @@
 				<configuration>
 					<archive>
 						<manifest>
-							<mainClass>perceptionExperiment.MainKafka</mainClass>
+							<mainClass>perceptionExperiment.MainFinal</mainClass>
 						</manifest>
 					</archive>
 					<descriptorRefs>

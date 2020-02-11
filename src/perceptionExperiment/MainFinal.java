@@ -35,18 +35,19 @@ public class MainFinal {
 	static String broker;
 	
 	
-	private static String profiling_file = "";
+	//private static String profiling_file = "/home/thiago/projetos/timestamp.csv";
+	private static String profiling_file = "/home/rr/timestamp.csv";
 	private static String car;
 	
 	public static void main(String[] args) {
 		//String[] fields = {"ciclo", "número de percepções", "Passiva/Ativa", "cc->bc", "plano", "cc->cc", "percepções válidas"};
 		//String[] fields = {"kafka->cc" , "cc->bc", "plano", "cc->cc", "percepções válidas"};
 		String[] fields = {"Inicio" , "Fim"};
-		profiling_file = args[2];
-		setHeader(fields);
-		startAgent();
-		
-		
+		//profiling_file = args[0];
+		//setHeader(fields);
+		startAgentPath(args[0]);
+		//System.out.println(execute("car(x);yes;yes")); 
+		//perceptConsumer("car(chevete)", "yes", "yes");
 		//consumeTopic = args[0];
 		//podutorTopic = args[1];
 		//broker = args[3];
@@ -201,7 +202,7 @@ public class MainFinal {
 	        
 	        ContextService[] cc = new ContextService[] {bc};
 	        Agent agent = new Agent();	    
-			agent.setProfilingFile(profiling_file);
+			//agent.setProfilingFile(profiling_file);
 
 	        agent.run(agentWalker, cc);
 
@@ -210,14 +211,64 @@ public class MainFinal {
 	    }
 	}
 	
+	private static void startAgentPath(String path){
+	    try {
+
+	       
+	    	File agentFile = new File(path);
+
+	        CharStream stream = CharStreams.fromFileName(agentFile.getAbsolutePath());
+	        AgentLexer lexer = new AgentLexer(stream);
+	        CommonTokenStream tokens = new CommonTokenStream(lexer);
+
+	        AgentParser parser = new AgentParser(tokens);
+	        parser.removeErrorListeners();
+	        parser.addErrorListener(new VerboseListener());
+
+	        ParseTree tree = parser.agent();
+	        ParseTreeWalker walker = new ParseTreeWalker();
+	        System.out.println(tree.toStringTree(parser));
+	        
+
+	        AgentWalker agentWalker = new AgentWalker();
+	        walker.walk(agentWalker, tree);
+	        
+	        BayesianContextService bc =  BayesianContextService.getInstance();
+	        
+	        
+	        ContextService[] cc = new ContextService[] {bc};
+	        Agent agent = new Agent();	    
+			//agent.setProfilingFile(profiling_file);
+
+	        agent.run(agentWalker, cc);
+
+	    } catch (IOException e) {
+	        System.out.println("I/O exception.");
+	    }
+	}
+
+	
+	public static String executeSimples() {
+		return "Teste";
+	}
+	
+	public static String executeSimplesParam(String param) {
+		startAgent();		
+		//perceptConsumer("car(chevete)", "yes", "yes");
+		return param;
+	}
+	
 	public static String execute(String percept) {
 		//SmartphoneSensor.screenSensor.onNext("screen("+screenPerception+").");
         //SmartphoneSensor.soundSensor.onNext("sound("+soundPerception+").");//para cada sensor é feito um ciclo de raciocinio
         //CommunicationSensor.approachingCar.onNext(percept+".");
 		
+		//startAgent();		
+		//perceptConsumer("car(chevete)", "yes", "yes");
+		
 		String[] percepts = percept.split(";");
-		if (percept.length() != 3) {
-			return null;
+		if (percepts.length != 3) {
+			return "Erro de formato percept";
 		}
 		
 		CommunicationSensor.approachingCar.onNext(percepts[0]+".");
