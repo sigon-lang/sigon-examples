@@ -48,7 +48,7 @@ public class MainFinal {
 	private static String car;
 	
 	
-	public static void main(String[] args) throws InterruptedException {
+	public static void main(String[] args){
 		//String[] fields = {"ciclo", "número de percepções", "Passiva/Ativa", "cc->bc", "plano", "cc->cc", "percepções válidas"};
 		//String[] fields = {"kafka->cc" , "cc->bc", "plano", "cc->cc", "percepções válidas"};
 		String[] fields = {"Inicio" , "Fim"};
@@ -56,22 +56,50 @@ public class MainFinal {
 		//setHeader(fields);
 		
 		startAgentPath(args[0]);
+		System.out.println("Teste");
+		System.out.println("CC "+CommunicationContextService.getInstance().getTheory());
+        System.out.println("BC "+BeliefsContextService.getInstance().getTheory().toString());	
+        System.out.println("RB "+BayesianContextService.getInstance().getBeliefs().toString());
+		
 		percept("car(chevete, yes);yes;yes");
-		Thread.sleep(5000);
-		
-		
-		  System.out.println("CC "+CommunicationContextService.getInstance().getTheory());
-	        System.out.println("BC "+BeliefsContextService.getInstance().getTheory().toString());	
-	        System.out.println("RB "+BayesianContextService.getInstance().getBeliefs().toString());
-			
 
-	        System.out.println("DC " +DesiresContextService.getInstance().getTheory());
-	        System.out.println("PC " +PlansContextService.getInstance().getTheory().toString());
-	        System.out.println("IC "+IntentionsContextService.getInstance().getTheory());
-	        System.out.println("CC " +CommunicationContextService.getInstance().getTheory());
+        System.out.println("DC " +DesiresContextService.getInstance().getTheory());
+        System.out.println("PC " +PlansContextService.getInstance().getTheory().toString());
+        System.out.println("IC "+IntentionsContextService.getInstance().getTheory());
+        System.out.println("CC " +CommunicationContextService.getInstance().getTheory());
+        System.out.println(getAction());
+        notify = "CARALHOOOOOOO";
+        System.out.println(getAction());
+        while(true) {
+        	try {
+				Thread.sleep(10000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+        	//System.out.println(getAction());
+        }
+        
+		
+
+		
+	//	while(true) {
+			
+		//	 System.out.println("T");
+		//}
+		
+		/*CommunicationSensor.approachingCar.onNext("car(x,yes).");
+		SmartphoneSensor.soundSensor.onNext("sound(yes).");
+		SmartphoneSensor.screenSensor.onNext("screen(yes).");*/
+		
+		
+		
+		
+		
+		 
 			//percept("car(chevete, yes);yes;yes");
 
-			System.out.println(getAction());
+			//System.out.println(getAction());
 
 		
 
@@ -92,6 +120,8 @@ public class MainFinal {
 		//runConsumer();
 
 	}
+	
+	
 	
 	public static void setValue(String value) {
 		try {
@@ -133,9 +163,11 @@ public class MainFinal {
 		
 	}
 	
-
+	public static Agent agent = new Agent();
+	
+	
 		
-	private static void startAgentPath(String path){
+	public static void startAgentPath(String path){
 	    try {
 
 	       
@@ -161,10 +193,11 @@ public class MainFinal {
 	        
 	        
 	        ContextService[] cc = new ContextService[] {bc};
-	        Agent agent = new Agent();	    
 			//agent.setProfilingFile(profiling_file);
 
 	        agent.run(agentWalker, cc);
+	        
+	        System.out.println("AGINDO");
 
 	    } catch (IOException e) {
 	        System.out.println("I/O exception.");
@@ -193,12 +226,7 @@ public class MainFinal {
 		SmartphoneSensor.soundSensor.onNext("sound("+percepts[1]+").");
 		SmartphoneSensor.screenSensor.onNext("screen("+percepts[2]+").");
 
-		try {
-			Thread.sleep(5000);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+
 		/*if(notify.equalsIgnoreCase("notNotify(pedestrian)")) {
 			notify = "notify(pedestrian)";
 			
@@ -259,16 +287,31 @@ public class MainFinal {
 
 		public static void setNotify(List<String> args) {
 			
+			System.out.println("Act");
+			notify = args.get(0);
 
-			synchronized (lock) {
+/*			synchronized (lock) {
 				notify = args.get(0);
 				lock.notify();
-	        }			
+			
+	        }*/			
 		}
 		
 		public static String getAction() {
+			
+			
+			
+			/*startAgentPath("/home/rr/awareness.on");
+			 * percept("car(chevete, yes);yes;yes");*/
+			 
+			System.out.println("Teste");
+			System.out.println("CC "+CommunicationContextService.getInstance().getTheory());
+	        System.out.println("BC "+BeliefsContextService.getInstance().getTheory().toString());	
+	        System.out.println("RB "+BayesianContextService.getInstance().getBeliefs().toString());
+			
+			
 
-			synchronized (lock) {
+			/*synchronized (lock) {
 				try {
 					lock.wait();
 
@@ -276,7 +319,7 @@ public class MainFinal {
 					e.printStackTrace();
 				}
 
-	        }
+	        }*/
 			return notify;
 
 		    
