@@ -1,0 +1,50 @@
+communication:
+    sensor("screen", "perceptionExperiment.SmartphoneSensor"). 
+    sensor("headphone", "perceptionExperiment.SmartphoneSensor"). 
+    sensor("gps", "perceptionExperiment.SmartphoneSensor").
+    sensor("vehicle", "perceptionExperiment.MessageSensor"). 
+    sensor("query", "perceptionExperiment.OntologySensor").
+    
+    actuator("textNotification", "perceptionExperiment.NotifyActuator").
+    actuator("audioNotification", "perceptionExperiment.NotifyActuator").
+    actuator("blockHeadphone", "perceptionExperiment.BlockActuator").
+    actuator("blockScreen", "perceptionExperiment.BlockActuator").
+    actuator("notifyDriver", "perceptionExperiment.NotifyActuator").
+
+
+beliefs:
+    smartphone(screen, off).
+    smartphone(gps, 0, 0, 0). //Simplification coordinate x, y and z.
+    smartphone(microphone, off).
+    smartphone(headphone, off).
+    safe(user).
+	vehicle :- car(X, Y).
+    //minimum distance between the agent and other entity
+    safe(radius,  10).
+    car(chevetao, yes).
+
+desires:
+    safe(user).
+    aware(user).
+    
+intentions:
+	safe(user).
+    
+planner:
+
+	plan(safe(user),
+	    [action(audioNotification(user, audio)), action(blockHeadphone(true))],
+	    [car(_, yes), smartphone(headphone, on), smartphone(screen, off)],
+	    [smartphone(headphone, off)]).
+	
+	plan(safe(user),
+	    [action(textNotification(user, text)), action(blockScreen(true))],
+	    [car(_, yes), smartphone(screen, on), smartphone(headphone, off)],
+	    [smartphone(screen, off)]).
+	    
+	plan(safe(user),
+	    [action(notifyDriver(X, yes))],
+	    [car(X, yes), smartphone(screen, on), smartphone(headphone, on)],
+	    _).
+
+//Esta regra de ponte adiciona em beliefs se o carro W esta dentro da regiao de notificacao T.	

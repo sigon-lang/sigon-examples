@@ -126,7 +126,7 @@ public class MainMultipleSensors {
 		SmartphoneSensor.incommingMessages.onNext("incommingMessage(msg0, read).");
 		SmartphoneSensor.incommingMessages.onNext("incommingMessage(msg1, unread).");
 		SmartphoneSensor.typing.onNext("typing(true).");
-		SmartphoneSensor.visionImpaired.onNext("visionImpaired(true).");
+		SmartphoneSensor.gps.onNext("visionImpaired(true).");
 		
 		MessageReceiverSensor.message.onNext("message(agent0, content)");
 		
@@ -159,7 +159,7 @@ private static void perceptAux(int index) {
 		SmartphoneSensor.incommingMessages.onNext("incommingMessage(msg0, read).");
 		SmartphoneSensor.incommingMessages.onNext("incommingMessage(msg1, unread).");
 		SmartphoneSensor.typing.onNext("typing(true).");
-		SmartphoneSensor.visionImpaired.onNext("visionImpaired(true).");
+		SmartphoneSensor.gps.onNext("visionImpaired(true).");
 		
 		MessageReceiverSensor.message.onNext("message(agent0, content)");
 		

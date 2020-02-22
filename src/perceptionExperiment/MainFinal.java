@@ -56,29 +56,37 @@ public class MainFinal {
 		//setHeader(fields);
 		
 		startAgentPath(args[0]);
-		System.out.println("Teste");
+		
+		
+		percept("car(chevete, yes);yes;yes");
+		//percept("car(chevete, yes);yes;yes");
+		
 		System.out.println("CC "+CommunicationContextService.getInstance().getTheory());
         System.out.println("BC "+BeliefsContextService.getInstance().getTheory().toString());	
         System.out.println("RB "+BayesianContextService.getInstance().getBeliefs().toString());
-		
-		percept("car(chevete, yes);yes;yes");
 
         System.out.println("DC " +DesiresContextService.getInstance().getTheory());
         System.out.println("PC " +PlansContextService.getInstance().getTheory().toString());
         System.out.println("IC "+IntentionsContextService.getInstance().getTheory());
         System.out.println("CC " +CommunicationContextService.getInstance().getTheory());
         System.out.println(getAction());
-        notify = "CARALHOOOOOOO";
+        
+
+        
+		//CommunicationSensor.approachingCar.onNext("\\+car(gol, yes).");
+		
+		System.out.println("CC "+CommunicationContextService.getInstance().getTheory());
+        System.out.println("BC "+BeliefsContextService.getInstance().getTheory().toString());	
+        System.out.println("RB "+BayesianContextService.getInstance().getBeliefs().toString());
+
+        System.out.println("DC " +DesiresContextService.getInstance().getTheory());
+        System.out.println("PC " +PlansContextService.getInstance().getTheory().toString());
+        System.out.println("IC "+IntentionsContextService.getInstance().getTheory());
+        System.out.println("CC " +CommunicationContextService.getInstance().getTheory());
         System.out.println(getAction());
-        while(true) {
-        	try {
-				Thread.sleep(10000);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-        	//System.out.println(getAction());
-        }
+
+
+        
         
 		
 
@@ -223,8 +231,9 @@ public class MainFinal {
 		
 		
 		CommunicationSensor.approachingCar.onNext(percepts[0]+".");
-		SmartphoneSensor.soundSensor.onNext("sound("+percepts[1]+").");
-		SmartphoneSensor.screenSensor.onNext("screen("+percepts[2]+").");
+		//CommunicationSensor.approachingCar.onNext("cavalo(teste, yes).");
+		SmartphoneSensor.headphone.onNext("sound("+percepts[1]+").");
+		SmartphoneSensor.screen.onNext("screen("+percepts[2]+").");
 
 
 		/*if(notify.equalsIgnoreCase("notNotify(pedestrian)")) {
@@ -243,8 +252,8 @@ public class MainFinal {
 	private static void perceptConsumer(String percept, String soundPerception, String screenPerception){
         //System.out.println("Percept");
         
-        SmartphoneSensor.screenSensor.onNext("screen("+screenPerception+").");
-        SmartphoneSensor.soundSensor.onNext("sound("+soundPerception+").");//para cada sensor é feito um ciclo de raciocinio
+        SmartphoneSensor.screen.onNext("screen("+screenPerception+").");
+        SmartphoneSensor.headphone.onNext("sound("+soundPerception+").");//para cada sensor é feito um ciclo de raciocinio
         CommunicationSensor.approachingCar.onNext(percept+".");
 //        CommunicationSensor.approachingCar.onNe(percept+".");
         
@@ -286,8 +295,7 @@ public class MainFinal {
 		}
 
 		public static void setNotify(List<String> args) {
-			
-			System.out.println("Act");
+					
 			notify = args.get(0);
 
 /*			synchronized (lock) {

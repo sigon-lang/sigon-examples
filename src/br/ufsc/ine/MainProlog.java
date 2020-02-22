@@ -1,4 +1,4 @@
-package perceptionExperiment;
+package br.ufsc.ine;
 
 import alice.tuprolog.InvalidTheoryException;
 import alice.tuprolog.MalformedGoalException;
@@ -8,13 +8,14 @@ import alice.tuprolog.Prolog;
 import alice.tuprolog.SolveInfo;
 import alice.tuprolog.Term;
 import alice.tuprolog.Theory;
+import br.ufsc.ine.utils.PrologEnvironment;
 
 public class MainProlog {
 	public static void main(String[] args) throws MalformedGoalException, NoMoreSolutionException, NoSolutionException {
 
 		try {
 			StringBuilder builder = new StringBuilder();
-			builder.append("a2.\n");
+			builder.append("\\+a2.\n");
 			//builder.append("a1 :- a2.");
 			// builder.append("bc(teste :- aux).");
 			Theory contextTheory;
@@ -24,14 +25,17 @@ public class MainProlog {
 			 * bc(have(alpha,screw)). bc(have(alpha,hammer)). bc(have(beta,nail)).
 			 */
 			contextTheory = new Theory(builder.toString());
-			Prolog prolog = new Prolog();
+			PrologEnvironment prolog = new PrologEnvironment();
 			
-			prolog.setTheory(contextTheory);
-			Term t = prolog.toTerm("a2");
-			System.out.println(contextTheory.toString());
-			SolveInfo solve = prolog.solve(t);
+			prolog.appendFact("a2.");
 			
-			System.out.println(solve);
+			SolveInfo solveGoal = prolog.solveGoal("\\+a2.");
+			
+			System.out.println(solveGoal.isSuccess());
+			
+			
+			
+			
 			
 			
 			/*SolveInfo solve = prolog.solve("bc(X).");

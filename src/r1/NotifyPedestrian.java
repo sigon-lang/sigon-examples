@@ -9,4 +9,11 @@ public class NotifyPedestrian  extends Actuator {
     public void act(List<String> list) {
     	System.out.println("NotifyPedestrian");
     }
+};
+
+public class TextNotification  extends NotifyPedestrian {
+    @Override
+    public void act(List<String> list) {
+    	System.out.println("NotifyPedestrian");
+    }
 }
