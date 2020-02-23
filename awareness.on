@@ -2,13 +2,14 @@ communication:
     sensor("sensor", "perceptionExperiment.SmartphoneSensor"). //informacoes relativas ao celular serao simuladas dentro do Sigon
     sensor("sensorCommunication", "perceptionExperiment.CommunicationSensor"). //informacoes recebidas do SUMO (posicao do carro, velocidade e etc)
     actuator("notifyActuator", "perceptionExperiment.NotifyActuator").
+    actuator("text", "perceptionExperiment.NotifyActuator").
+    
 
 
 beliefs:	
 	//car(c). TODO: verificar o motivo de nao adicionar essa crenca ao receber o car(chevete)
 	vehicle :- car(X, Y).
-	//car(chevete).	
-	//adiciona-se crencas vindas do cc
+	
 	
 desires:
     notifyPedestrian.
@@ -27,9 +28,9 @@ _bayesian:
 	
 
 planner:
-	plan(notifyPedestrian,[action(notifyActuator(notifyPedestrian))],[aware(no)],_). //a ideia é que esse pegue coisas do BC
+	plan(notifyPedestrian,[action(text(notifyPedestrian))],[aware(no)],_). //a ideia é que esse pegue coisas do BC
 	
-     //plan(notifyPedestrian,[action(notifyActuator(notifyPedestrian))],[aware, car(_), sound(_), screen(_)],_). //pegue preC de RBC
+     //plan(notifyPedestrian,[action(t(notifyPedestrian))],[aware, car(_), sound(_), screen(_)],_). //pegue preC de RBC
     //plan(notifyPedestrian,[action(notifyActuator(notNotifyPedestrian))],[not aware, car(_), sound(_), screen(_)],_). //a ideia é que esse pegue coisas do BC
     //plan(notifyPedestrian,[action(notifyActuator(notNotifyPedestrian))],[aware],_). //pegue preC de RBC
     

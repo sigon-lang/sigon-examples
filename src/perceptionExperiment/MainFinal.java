@@ -40,7 +40,7 @@ public class MainFinal {
 	static String produtorTopic;
 	static String consumeTopic;
 	static String broker;
-	static String notify = "notNotify(pedestrian)";
+	static String notify = "blabla";
 	
 	
 	//private static String profiling_file = "/home/thiago/projetos/timestamp.csv";
@@ -58,7 +58,7 @@ public class MainFinal {
 		startAgentPath(args[0]);
 		
 		
-		percept("car(chevete, yes);yes;yes");
+		percept("car(chevete, yes);smartphone(screen, on);smartphone(headphone, on)");
 		//percept("car(chevete, yes);yes;yes");
 		
 		System.out.println("CC "+CommunicationContextService.getInstance().getTheory());
@@ -230,11 +230,10 @@ public class MainFinal {
 		String[] percepts = percept.split(";");
 		
 		
-		CommunicationSensor.approachingCar.onNext(percepts[0]+".");
+		MessageSensor.vehicle.onNext(percepts[0]+".");
 		//CommunicationSensor.approachingCar.onNext("cavalo(teste, yes).");
-		SmartphoneSensor.headphone.onNext("sound("+percepts[1]+").");
-		SmartphoneSensor.screen.onNext("screen("+percepts[2]+").");
-
+		//SmartphoneSensor.screen.onNext(percepts[1]+".");
+		SmartphoneSensor.headphone.onNext(percepts[2]+".");
 
 		/*if(notify.equalsIgnoreCase("notNotify(pedestrian)")) {
 			notify = "notify(pedestrian)";

@@ -71,6 +71,7 @@ public class MainBDI {
 
         SmartphoneSensor.headphone.onNext("smartphone(headphone, on).");
         SmartphoneSensor.headphone.onNext("smartphone(screen, on).");
+        MessageSensor.vehicle.onNext("car(chevete, yes).");
 
 		//CommunicationSensor.approachingCar.onNext("\\+car(gol, yes).");
 		
